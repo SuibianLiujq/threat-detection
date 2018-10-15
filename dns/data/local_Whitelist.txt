@@ -1,0 +1,8 @@
+############################################################################
+#  This is a whitelist which contains dns name we collected by ourselves.  
+#  Last update time is 2018-05-17.                                         
+#  The format of this list:                                                
+#  domain                                                                  
+############################################################################
+pubyun.com
+h-cdn.com
