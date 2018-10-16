@@ -1,0 +1,44 @@
+{
+	"func": [
+		"localblacklist",
+		"ransomwaretracker",
+		"zeustracker",
+		"malwaredomains",
+		"CoinBlockerLists"
+	],
+
+	"freq": {
+		"start_time": "now",
+		"period": "5m",
+		"offset": 30
+	},
+
+	"log": {
+		"level": "debug"
+	},
+
+	"es_server": {
+		"server": "localhost",
+		"port": 9222,
+		"dns_index": "dns",
+		"alert_index": "alert"
+	},
+
+	"es_client": {
+		"enable": false,
+		"user": "elastic",
+		"passwd": "changeme"
+	},
+
+	"syslog": {
+		"enable": false,
+		"host": "localhost",
+		"port": 514
+	},
+
+	"others": {
+		"offline": false,
+		"alert_level": "warn"
+	}
+}
+

@@ -3,7 +3,7 @@
 import os
 import time
 import datetime
-from configuration import set_data_path,set_frequency,log,get_others_config
+from conf import set_data_path,set_frequency,log,get_others_config
 import TrieSearch,merge_blacklist
 
 data_path = set_data_path()
@@ -22,16 +22,16 @@ def store_run(storeDate):
         log.error("Download failed.\n{0}".format(e))
 
 def run():
-    entertime = frequency[0]
-    delta = frequency[1]
-    offset = frequency[2]
+    entertime = frequency["start_time"]
+    delta = frequency["period"]
+    offset = frequency["offset"]
 
     startTime = datetime.datetime.strptime(entertime, '%Y-%m-%d %H:%M:%S')
     #begin= '2017-05-24 23:59:57'
     #beginTime = datetime.datetime.strptime(begin, '%Y-%m-%d %H:%M:%S')
     #print startTime
     log.info("Starting theat DNS checking.")
-    if others["offline"] == "true":
+    if others["offline"]:
         log.info("Enable offline , use default intelligence.")
     count = 0
     while True:
@@ -49,7 +49,7 @@ def run():
         blacklist_Trie_dir = os.path.join(data_path,'trie'+'-'+storeDate+".json")
         # print blacklist_Trie_dir
 
-        if  (others["offline"] != "true") and not ((os.path.exists(blacklist_dir) and os.path.exists(blacklist_Trie_dir))):
+        if  (not others["offline"]) and not ((os.path.exists(blacklist_dir) and os.path.exists(blacklist_Trie_dir))):
             store_run(storeDate)
 
         try:

@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 import json,re
 import datetime,sys,os
 from blacklist_tools import load_dict,create_Trie
-from configuration import set_data_path,get_es_config,log,get_syslog_config,get_es_client,get_others_config
+from conf import set_data_path,get_es_config,log,get_syslog_config,get_es_client,get_others_config
 import Second_Check
 
 data_path = set_data_path()
@@ -16,9 +16,9 @@ others    = get_others_config()
 class ESclient(object):
 	def __init__(self):
 		if ES_client:
-			self.__es_client=Elasticsearch([{'host':ES_config[0],'port':ES_config[1]}],http_auth=(ES_client[0],ES_client[1]))
+			self.__es_client=Elasticsearch([{'host':ES_config["server"],'port':ES_config["port"]}],http_auth=(ES_client["user"],ES_client["passwd"]))
 		else:
-			self.__es_client=Elasticsearch([{'host':ES_config[0],'port':ES_config[1]}])
+			self.__es_client=Elasticsearch([{'host':ES_config["server"],'port':ES_config["port"]}])
 
 	def get_es_domain(self,gte,lte,time_zone):
 		# 获取es的dns-*索引的domain
@@ -64,7 +64,7 @@ class ESclient(object):
 		}
 
 		search_result=self.__es_client.search(
-			index='{0}-*'.format(ES_config[2]),
+			index='{0}-*'.format(ES_config["dns_index"]),
 			body=search_option
 			)
 		# print search_result
@@ -114,7 +114,7 @@ class ESclient(object):
 			}
 
 		search_result=self.__es_client.search(
-			index='{0}-*'.format(ES_config[2]),
+			index='{0}-*'.format(ES_config["dns_index"]),
 			body=search_option
 			)
 		# print json.dumps(search_result,indent=4)
@@ -126,7 +126,7 @@ class ESclient(object):
 	def es_index(self,doc):
 		# 数据回插es的alert-*索引
 		ret = self.__es_client.index(
-			index = '{0}-{1}'.format(ES_config[3],datetime.datetime.now().strftime('%Y-%m-%d')),
+			index = '{0}-{1}'.format(ES_config["alert_index"],datetime.datetime.now().strftime('%Y-%m-%d')),
 			doc_type = 'netflow_v9',
 			body = doc
 			)
@@ -238,7 +238,7 @@ def main(gte,lte,timestamp,time_zone):
 				doc['type'] = "mal_dns"
 				doc['desc_type'] = "[mal_dns] Request of Malicious Domain Name Detection"
 				doc['desc_subtype'] = "[{0}] Intelligence comes from:{1}".format(doc['subtype'],source)
-				if others["only_info"] == "true":
+				if others["alert_level"] == "info":
 					es.es_index(doc)
 					if syslogger:
 						syslogger.info(doc)

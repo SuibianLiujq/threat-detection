@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os,sys
 from blacklist_tools import *
-from configuration import set_data_path,get_moudle_name,log
+from conf import set_data_path,get_moudle_name,log
 
 data_path = set_data_path()
 moudle_name = get_moudle_name()

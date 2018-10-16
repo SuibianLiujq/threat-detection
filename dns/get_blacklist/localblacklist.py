@@ -5,7 +5,7 @@ from store_json import store_json
 import sys
 import os
 sys.path.append('../')
-from configuration import set_data_path
+from conf import set_data_path
 
 
 def localblacklist():
