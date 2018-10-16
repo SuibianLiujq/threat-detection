@@ -12,11 +12,11 @@ others    = get_others_config()
 
 def store_run(storeDate):
     try:
-        log.info("Download starting.")
+        log.debug("Download starting.")
 
         merge_blacklist.main(storeDate)
 
-        log.info("Download completed.")
+        log.debug("Download completed.")
 
     except Exception, e:
         log.error("Download failed.\n{0}".format(e))
@@ -32,7 +32,7 @@ def run():
     #print startTime
     log.info("Starting theat DNS checking.")
     if others["offline"]:
-        log.info("Enable offline , use default intelligence.")
+        log.debug("Enable offline , use default intelligence.")
     count = 0
     while True:
         time.sleep(count)
@@ -53,7 +53,7 @@ def run():
             store_run(storeDate)
 
         try:
-            log.info("Checking the DNS.")
+            log.debug("Checking the DNS.")
             # execute the command
             gte = (startTime-delta-offset).strftime('%Y-%m-%d %H:%M:%S')
             lte = (startTime-offset).strftime('%Y-%m-%d %H:%M:%S')
@@ -69,7 +69,7 @@ def run():
 
             # command = r'python TrieSearch.py "%s" "%s" "%s"' %(gte,lte,timestamp)
             # status = os.system(command)
-            log.info("Checking completed.")
+            log.debug("Checking completed.")
             # print("Command status = %s."%status)
             startTime = startTime+delta
             count = 0

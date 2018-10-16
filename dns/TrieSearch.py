@@ -206,9 +206,9 @@ def main(gte,lte,timestamp,time_zone):
 
 	es = ESclient()
 	try:
-		log.info('Getting ES DNS domain.')
+		log.debug('Getting ES DNS domain.')
 		search_result = es.get_es_domain(gte=gte,lte=lte,time_zone=time_zone)
-		log.info('Get ES DNS domain completed.')
+		log.debug('Get ES DNS domain completed.')
 	except Exception as e:
 		log.error("Get ES DNS domain failed.\n{0}".format(e))
 		raise e
@@ -218,8 +218,8 @@ def main(gte,lte,timestamp,time_zone):
 	blacklist_Trie = load_dict(blacklist_Trie_dir)
 	match_DNSList,match_blacklist = find_match_DNS(blacklist_Trie,split_DNSList)
 	match_DNSList,match_blacklist = check_whitelist(match_DNSList,match_blacklist)
-	log.info('Match DNS list :\n{0}'.format(match_DNSList))
-	log.info('Match DNS blacklist :\n{0}'.format(match_blacklist))
+	log.debug('Match DNS list : {0}'.format(match_DNSList))
+	log.debug('Match DNS blacklist : {0}'.format(match_blacklist))
 	syslogger = get_syslog_config()
 	# 匹配的DNS回插到es
 	if match_DNSList:

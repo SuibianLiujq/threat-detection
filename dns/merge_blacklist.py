@@ -13,10 +13,10 @@ def get_blacklist_module():
     parse_blacklist = moudle_name
     for file_name in parse_blacklist:
         module = __import__('get_blacklist.{0}'.format(file_name),fromlist=True)
-        log.info('Downloading {0}.'.format(file_name))
+        log.debug('Downloading {0}.'.format(file_name))
         try:
             module.main()
-            log.info('Download {0} completed.'.format(file_name))
+            log.debug('Download {0} completed.'.format(file_name))
         except Exception as e:
             log.error('Download {0} failed.'.format(file_name))
         
