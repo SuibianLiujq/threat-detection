@@ -1,0 +1,24 @@
+{
+	"log": {
+		"level": "info"
+	},
+
+	"es_server": {
+		"server": "localhost",
+		"port": 9222,
+		"alert_index": "alert"
+	},
+
+	"es_client": {
+		"enable": false,
+		"user": "elastic",
+		"passwd": "changeme"
+	},
+
+	"syslog": {
+		"enable": false,
+		"host": "localhost",
+		"port": 514
+	}
+}
+
