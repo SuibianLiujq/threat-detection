@@ -3,6 +3,7 @@
 
 import json
 import datetime
+from conf import ES_config
 
 def query_last(es,gte,lte,time_zone,dip):
 	search_option = {
@@ -46,7 +47,7 @@ def query_last(es,gte,lte,time_zone,dip):
 		}
 	}
 	result = es.search(
-		index = "tcp-*",
+		index = ES_config["tcp_index"],
 		body  = search_option
 	)
 	return result
@@ -116,7 +117,7 @@ def get_date_flow(es,gte,lte,time_zone,dip,sip_list):
 		}
 	}
 	result = es.search(
-		index = "tcp-*",
+		index = ES_config["tcp_index"],
 		body  = search_option
 	)
 	return result

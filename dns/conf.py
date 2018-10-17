@@ -31,26 +31,13 @@ log = set_logger()
 #############################################################################################################################
 
 def set_frequency():
-	freq = __conf["freq"]
-	
-	frequency = []
+	time_config = get_time_config()
 
-	if freq["start_time"] == "now":
-		freq["start_time"] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-	regex1=re.compile(r'\d+')
-	regex2=re.compile(r'[a-zA-Z]+')
-	period_num = regex1.findall(freq["period"])[0]
-	period_scale = regex2.findall(freq["period"])[0].upper()
-	if period_scale == 'S' :
-		period  = datetime.timedelta(seconds = int(period_num))
-	elif period_scale == 'M':
-		period = datetime.timedelta(minutes = int(period_num))
-	elif period_scale == 'D':
-		period = datetime.timedelta(days = int(period_num))
-	freq["period"] = period
-
-	freq["offset"] = datetime.timedelta(seconds = freq["offset"])
+	freq = {
+		"start_time": time_config["startTime"],
+		"period": time_config["interval"],
+		"offset": time_config["offset"]
+	}
 
 	return freq
 # print set_frequency()
@@ -58,7 +45,8 @@ def set_frequency():
 #############################################################################################################################
 
 ES_config = get_es_config()
-ES_config["dns_index"] = __conf["index"]
+ES_config["dns_index"] = __conf["index"]["dns"]
+ES_config["tcp_index"] = __conf["index"]["tcp"]
 
 #############################################################################################################################
 	
