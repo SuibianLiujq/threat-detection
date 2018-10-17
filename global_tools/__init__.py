@@ -71,11 +71,11 @@ def get_time_config():
 	time_config = __conf["time"]
 
 	if time_config["startTime"] == "now":
-		time_config[startTime] == datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		time_config["startTime"] == datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-	time_config["interval"] = datetime.timedelta(minutes = time_config["interval"])
-
-	time_config["offset"] = datetime.timedelta(seconds = time_config["offset"])
-
-	return time_config
+	return {
+		"startTime": time_config["startTime"],
+		"interval": datetime.timedelta(minutes = time_config["interval"]),
+		"offset": datetime.timedelta(seconds = time_config["offset"])
+	}
 	
