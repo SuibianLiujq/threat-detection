@@ -71,7 +71,7 @@ def get_time_config():
 	time_config = __conf["time"]
 
 	if time_config["startTime"] == "now":
-		time_config["startTime"] == datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		time_config["startTime"] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 	return {
 		"startTime": time_config["startTime"],
