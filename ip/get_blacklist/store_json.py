@@ -14,8 +14,8 @@ def store_json(dict,name):
 	mylog=set_logger()
 	tday = datetime.datetime.now().date()
 	file_name = name+ '.json'
-	savepath=parser_config.get_store_path()[1]+str(tday)+os.path.sep+file_name
-
+	savepath=parser_config.get_store_path()+str(tday)+os.path.sep+file_name
+	#mylog.info("path:{0}".format(savepath))
 	try:
 		with open(savepath,'w') as f:
 			f.write(json.dumps(dict))

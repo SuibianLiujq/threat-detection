@@ -454,7 +454,7 @@ def subnet_lpm(subnet, es_ip):
     mylog = set_logger()
     lpm.init()
     sndict = {}
-    fpath = parser_config.get_store_path()[1]
+    fpath = parser_config.get_store_path()
     sn_lte16 = {}
     lpmdict = {}
     sn_gte24 = {}

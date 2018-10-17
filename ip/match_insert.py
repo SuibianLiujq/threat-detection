@@ -338,7 +338,7 @@ def checkAndInsert(path,filelist,ip_es_list,index,aggs_name,timestamp,serverNum,
     mylog=set_logger()
     all_threatIP={}
     for fname in filelist:
-        mylog.info('-*-*-*-*-file:{}-*-*-*-*-'.format(fname))
+        #mylog.info('-*-*-*-*-file:{}-*-*-*-*-'.format(fname))
         fpath = path + fname
         dataset = load_dict(fpath)
         #mylog.info("dataset len:{0}".format(len(dataset)))
@@ -359,7 +359,7 @@ step3: insert the threat info into es
 '''
 def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,querys_str):
     mylog = set_logger()
-    path=parser_config.get_store_path()[1]+str(tday)+os.path.sep
+    path=parser_config.get_store_path()+str(tday)+os.path.sep
     cnt=0
     allThreatIP={}# 有问题的dip
     # 不联网情况下，尝试使用过去7天的数据检查
@@ -378,7 +378,7 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
         else:
             # check last 7 days file
             lday=tday+datetime.timedelta(-1)
-            path = parser_config.get_store_path()[1] + str(lday) + os.path.sep
+            path = parser_config.get_store_path() + str(lday) + os.path.sep
             cnt=cnt+1
     #get es list
     es = ESclient(server =serverNum,port=dport)
@@ -406,7 +406,7 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
             # check each file
             for fname in filelist:
                 fpath = blackpath + fname
-                mylog.info(' -*-*-*-*- local file:{} -*-*-*-*-'.format(fname))
+                # mylog.info(' -*-*-*-*- local file:{} -*-*-*-*-'.format(fname))
                 dataset = blacklist_tools.load_blacklist(fpath)
                 if (dataset):
                     try:

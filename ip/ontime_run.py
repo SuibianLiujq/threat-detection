@@ -24,7 +24,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
     mylog=set_logger()
     try:
         # print("Starting check command."), time.ctime()
-        mylog.info("{0}[Starting mal_ip check command. Time is:{1}]{2}".format("="*15,(startTime).strftime('%Y-%m-%d %H:%M:%S'),"="*15))
+        mylog.info("{0}[mal_ip] Starting check command.Time is:{1} {2}".format("="*12,(startTime).strftime('%Y-%m-%d %H:%M:%S'),"="*12))
         # execute the command
         gte = (startTime - delta-offset).strftime('%Y-%m-%d %H:%M:%S')
         lte = (startTime-offset).strftime('%Y-%m-%d %H:%M:%S')
@@ -37,7 +37,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
         # check
         all_ip=match_insert.main(tday,indx,gte,lte,aggs_name,timestamp,serverNum,dport,time_zone,query_strs)
         # print("check finish."), time.ctime()
-        mylog.info("{0}[mal_ip check finish.]{1}".format("="*30,"="*30))
+        mylog.info("{0}[mal_ip] check finish.{1}".format("="*30,"="*30))
         # print"="*40
         return all_ip
 
@@ -63,7 +63,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
         if(tday!=datetime.datetime.now().date()):
             flgnum=0 # reset flgnum per day
             tday=datetime.datetime.now().date()
-            dirpath = parser_config.get_store_path()[1] + str(tday) + os.path.sep
+            dirpath = parser_config.get_store_path() + str(tday) + os.path.sep
             os.mkdir(dirpath)
         while datetime.datetime.now() < startTime:
             #print('time sleep...')

@@ -19,6 +19,11 @@
 		"enable": false,
 		"host": "localhost",
 		"port": 514
+	},
+	"time":{
+		"startTime":"2018-10-17 17:00:00",
+		"interval":5,
+		"offset":0
 	}
 }
 

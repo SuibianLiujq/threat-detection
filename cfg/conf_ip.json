@@ -1,0 +1,33 @@
+{
+  "ES_info":{
+    "index":"tcp-*",
+    "aggs_name":"dip",
+    "query":"NOT dip:[192.168.0.0 TO 192.168.255.255] AND NOT dip:[172.16.0.0 TO 172.31.255.255] AND NOT dip:[10.0.0.0 TO 10.255.255.255] AND NOT dport:445 AND unknown_conn:0"
+  },
+  "file_path":{
+    "blacklist_path":"./get_blacklist/",
+    "store_path":"./data/",
+    "self_blacklist_path":"self_blacklist",
+    "blacklist_flg":1,
+    "self_whitelist_path":"self_whitelist",
+    "whitelist_flg":1,
+    "self_defaultlist_path":"self_defaultlist",
+    "defaultlist_flg":1
+  },
+  "switch":{
+    "ip_check_C2":1,
+    "update_flg":1,
+    "lpm_method":1,
+    "full_method":1,
+    "warnList":4
+  },
+  "blacklist_file":{
+    "bitnodes":"1",
+    "feodo_ip":"1",
+    "ssl_abuse":"3",
+    "ZeuS_ip":"6",
+    "bambenek_ip":"12",
+    "MiningServerIPList":"144",
+    "dropList":"144"
+  }
+}
