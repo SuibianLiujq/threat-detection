@@ -97,10 +97,11 @@ if __name__=="__main__":
     delta,discard,offset=parser_config.getCheckDeltatime()
     # entertime =
     if(discard.lower()=='now'):
-        startTime= time.strftime("%Y-%m-%d %H:%M:%S")
+        tmpt= time.strftime("%Y-%m-%d %H:%M:%S")
+        startTime = datetime.datetime.strptime(tmpt, '%Y-%m-%d %H:%M:%S')
     else:
         startTime = datetime.datetime.strptime(discard, '%Y-%m-%d %H:%M:%S')
-    entertime = time.strftime("%Y-%m-%d %H:%M:%S")
+    # entertime = time.strftime("%Y-%m-%d %H:%M:%S")
     serverNum,dport,indx,aggs_name,querys=parser_config.get_ES_info()
     #serverNum='172.23.2.96',dport = "9200";indx=tcp-*; aggs_name=dip
     #set global dic for storm suppression
