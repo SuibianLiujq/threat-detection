@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # author: songh
 
+import sys
+sys.path.append('..')
 from elasticsearch import Elasticsearch
 import time
 import datetime

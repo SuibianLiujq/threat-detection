@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 import ConfigParser
 import re,datetime,os
 from global_tools import set_logger

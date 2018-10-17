@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append('..')
 from elasticsearch import Elasticsearch
 import datetime,sys
 from blacklist_tools import load_dict,load_whitelist
@@ -339,6 +341,7 @@ def checkAndInsert(path,filelist,ip_es_list,index,aggs_name,timestamp,serverNum,
         mylog.info('-*-*-*-*-file:{}-*-*-*-*-'.format(fname))
         fpath = path + fname
         dataset = load_dict(fpath)
+        #mylog.info("dataset len:{0}".format(len(dataset)))
         if (dataset):
             msg = dataset[dataset.keys()[0]]
             # get match result

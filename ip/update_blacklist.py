@@ -6,6 +6,8 @@ update each blacklist , each them in different file.
 step1 : create a daily dir
 step2 : save or update each blacklist
 '''
+import sys
+sys.path.append('..')
 import os
 import parser_config
 import time
@@ -35,11 +37,11 @@ def update_blacklist_module(flgnum):
 def main(tday,flgnum):
     mylog=set_logger()
     #print("Starting update command."), time.ctime()
-    mylog.info("[Starting update command.]")
+    mylog.info("{0}[mal_ip] Starting update command.{1}".format("-"*15,"-"*15))
     # dirpath=".\data\\%s\\"%tday
     dirpath=parser_config.get_store_path()[1]+str(tday)+os.path.sep
     if(not os.path.exists(dirpath)):
         os.mkdir(dirpath)
     update_blacklist_module(flgnum)
     # print("update finish."), time.ctime()
-    mylog.info("[update finish.]")
+    mylog.info("{0}[mal_ip] update finish.{1}".format("-"*15,"-"*15))

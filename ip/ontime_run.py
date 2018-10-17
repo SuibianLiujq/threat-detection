@@ -1,6 +1,9 @@
 #! /usr/bin/python
 # -*- coding:utf8 -*-
 # author: songh
+
+import sys
+sys.path.append('..')
 import os
 import time
 import datetime
@@ -34,7 +37,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
         # check
         all_ip=match_insert.main(tday,indx,gte,lte,aggs_name,timestamp,serverNum,dport,time_zone,query_strs)
         # print("check finish."), time.ctime()
-        mylog.info("{0}mal_ip check finish.{1}".format("="*30,"="*30))
+        mylog.info("{0}[mal_ip check finish.]{1}".format("="*30,"="*30))
         # print"="*40
         return all_ip
 
