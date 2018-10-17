@@ -1,6 +1,6 @@
 import logging,logging.handlers
 from cloghandler import ConcurrentRotatingFileHandler
-import re,platform,os,json
+import re,platform,os,json,datetime
 
 __conf_dir = os.path.join(os.path.split(__file__)[0],"../cfg/conf_global.json")
 with open(__conf_dir,'r') as f:
@@ -67,3 +67,15 @@ def get_syslog_config():
 	
 	return logger_alert
 
+def get_time_config():
+	time_config = __conf["time"]
+
+	if time_config["startTime"] == "now":
+		time_config[startTime] == datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+	time_config["interval"] = datetime.timedelta(minutes = time_config["interval"])
+
+	time_config["offset"] = datetime.timedelta(seconds = time_config["offset"])
+
+	return time_config
+	

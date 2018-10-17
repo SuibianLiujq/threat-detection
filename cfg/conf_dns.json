@@ -7,13 +7,10 @@
 		"CoinBlockerLists"
 	],
 
-	"freq": {
-		"start_time": "now",
-		"period": "5m",
-		"offset": 30
+	"index": {
+		"dns": "dns",
+		"tcp": "tcp"
 	},
-
-	"index": "dns",
 
 	"others": {
 		"offline": false,
