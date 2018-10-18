@@ -36,7 +36,7 @@ def run():
     count = 0
     while True:
         time.sleep(count)
-        log.info("The next start time :{0}".format(startTime))
+        log.info("[MAL_DNS] The next start time :{0}".format(startTime))
         if datetime.datetime.now() < startTime:
             minus_time = startTime - datetime.datetime.now()
             sleep_time = minus_time.days*86400+minus_time.seconds
