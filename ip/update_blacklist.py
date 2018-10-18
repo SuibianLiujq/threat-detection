@@ -29,7 +29,9 @@ def update_blacklist_module(flgnum):
             # command='python %s'%fpath
             try:
                 # df = __import__('get_blacklist.{}'.format(filename), fromlist=True)
-                df = __import__('{0}.{1}'.format(bl_file[1].strip(' '),filename), fromlist=True)
+                # bl_pa='{0}.{1}'.format(bl_file[2].strip(' '),filename)
+                # mylog.info(bl_pa)
+                df = __import__('{0}.{1}'.format(bl_file[2].strip(' '),filename), fromlist=True)
                 #mylog.info("start update {} ".format(filename))
                 df.main()
                 # status=os.system(command)

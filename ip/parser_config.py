@@ -10,11 +10,12 @@ sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
 from global_tools import set_logger
 
 # ========read config =================
-__conf_global = "../cfg/conf_global.json"
+__conf_global = os.path.join(os.path.split(__file__)[0],"../cfg/conf_global.json")
 with open(__conf_global, 'r') as f:
     __conf_g = json.loads(f.read())
 #print __conf
-__conf_ip="../cfg/conf_ip.json"
+__conf_ip=os.path.join(os.path.split(__file__)[0],"../cfg/conf_ip.json")
+
 with open(__conf_ip, 'r') as fs:
     __conf_ip = json.loads(fs.read())
 

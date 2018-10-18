@@ -5,8 +5,8 @@
     "query":"NOT dip:[192.168.0.0 TO 192.168.255.255] AND NOT dip:[172.16.0.0 TO 172.31.255.255] AND NOT dip:[10.0.0.0 TO 10.255.255.255] AND NOT dport:445 AND unknown_conn:0"
   },
   "file_path":{
-    "blacklist_path":"./get_blacklist/",
-    "store_path":"./data/",
+    "blacklist_path":"./ip/get_blacklist/",
+    "store_path":"./ip/data/",
     "self_blacklist_path":"self_blacklist",
     "blacklist_flg":1,
     "self_whitelist_path":"self_whitelist",
