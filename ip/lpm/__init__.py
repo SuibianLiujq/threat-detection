@@ -10,7 +10,7 @@ import os
 #windows
 print os.getcwd()
 # lib_lpm = cdll.LoadLibrary(os.getcwd()+'\lpm\lpm.so')
-lib_lpm = cdll.LoadLibrary(os.getcwd()+os.path.sep+'lpm'+os.path.sep+'lpm.so')
+lib_lpm = cdll.LoadLibrary(os.getcwd()+os.path.sep+'ip'+os.path.sep+'lpm'+os.path.sep+'lpm.so')
 
 def init():
     lib_lpm.lpm_init_rule()
