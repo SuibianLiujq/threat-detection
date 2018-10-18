@@ -3,9 +3,10 @@
 # author: songh
 
 import sys
-sys.path.append('..')
+# sys.path.append('..')
 import ConfigParser
 import datetime, os,json
+sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
 from global_tools import set_logger
 
 # ========read config =================
