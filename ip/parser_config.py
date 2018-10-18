@@ -1,7 +1,7 @@
 import sys
 sys.path.append('..')
 import ConfigParser
-import re, datetime, os,json
+import datetime, os,json
 from global_tools import set_logger
 
 # ========read config =================

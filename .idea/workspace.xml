@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df1232a1-9418-4b8f-8712-1d1f70fe8f68" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ip/blacklist_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/ip/blacklist_tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/parser_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/ip/parser_config.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,13 +72,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ip/parser_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            <state relative-caret-position="99">
+              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
               <folding>
-                <marker date="1539827085490" expanded="true" signature="1712:1788" ph="..." />
+                <marker date="1539827327598" expanded="true" signature="1708:1784" ph="..." />
               </folding>
             </state>
           </provider>
@@ -106,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ip/blacklist_tools.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+            <state relative-caret-position="297">
+              <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="35" />
               <folding>
                 <marker date="1539827226235" expanded="true" signature="6508:6624" ph="..." />
               </folding>
@@ -183,8 +182,8 @@
         <option value="$PROJECT_DIR$/ip/match_insert.py" />
         <option value="$PROJECT_DIR$/ip/ontime_run.py" />
         <option value="$PROJECT_DIR$/ip/lpm/__init__.py" />
-        <option value="$PROJECT_DIR$/ip/parser_config.py" />
         <option value="$PROJECT_DIR$/ip/blacklist_tools.py" />
+        <option value="$PROJECT_DIR$/ip/parser_config.py" />
       </list>
     </option>
   </component>
@@ -491,16 +490,6 @@
     <entry file="file://$PROJECT_DIR$/ip/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ip/parser_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding>
-            <marker date="1539827085490" expanded="true" signature="1712:1788" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ip/lpm/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -524,10 +513,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ip/blacklist_tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        <state relative-caret-position="297">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="35" />
           <folding>
             <marker date="1539827226235" expanded="true" signature="6508:6624" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ip/parser_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding>
+            <marker date="1539827327598" expanded="true" signature="1708:1784" ph="..." />
           </folding>
         </state>
       </provider>
