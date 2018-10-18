@@ -1,3 +1,7 @@
+#! /usr/bin/python
+# -*- coding:utf8 -*-
+# author: songh
+
 import sys
 sys.path.append('..')
 import ConfigParser
