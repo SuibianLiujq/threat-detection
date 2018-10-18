@@ -12,14 +12,14 @@ others    = get_others_config()
 
 def store_run(storeDate):
     try:
-        log.debug("Download starting.")
+        log.info("[mal_dns] Download started.")
 
         merge_blacklist.main(storeDate)
 
-        log.debug("Download completed.")
+        log.info("[mal_dns] Download done.")
 
     except Exception, e:
-        log.error("Download failed.\n{0}".format(e))
+        log.error("[mal_dns] Download failed.\n{0}".format(e))
 
 def run():
     entertime = frequency["start_time"]
@@ -30,13 +30,13 @@ def run():
     #begin= '2017-05-24 23:59:57'
     #beginTime = datetime.datetime.strptime(begin, '%Y-%m-%d %H:%M:%S')
     #print startTime
-    log.info("Starting theat DNS checking.")
+    log.info("[mal_dns] Running mal_dns detection.")
     if others["offline"]:
-        log.debug("Enable offline , use default intelligence.")
+        log.info("[mal_dns] Enable offline , use default intelligence.")
     count = 0
     while True:
         time.sleep(count)
-        log.info("[MAL_DNS] The next start time :{0}".format(startTime))
+        log.info("[mal_dns] The next start time :{0}".format(startTime))
         if datetime.datetime.now() < startTime:
             minus_time = startTime - datetime.datetime.now()
             sleep_time = minus_time.days*86400+minus_time.seconds
@@ -53,7 +53,7 @@ def run():
             store_run(storeDate)
 
         try:
-            log.debug("Checking the DNS.")
+            log.info("[mal_dns] Checking started.")
             # execute the command
             gte = (startTime-delta-offset).strftime('%Y-%m-%d %H:%M:%S')
             lte = (startTime-offset).strftime('%Y-%m-%d %H:%M:%S')
@@ -69,12 +69,12 @@ def run():
 
             # command = r'python TrieSearch.py "%s" "%s" "%s"' %(gte,lte,timestamp)
             # status = os.system(command)
-            log.debug("Checking completed.")
+            log.info("[mal_dns] Checking done.")
             # print("Command status = %s."%status)
             startTime = startTime+delta
             count = 0
         except Exception, e:
-            log.error("Checking failed.\n{0}".format(e))
+            log.error("[mal_dns] Checking failed.\n{0}".format(e))
             count += 1
 
 if __name__=="__main__":
