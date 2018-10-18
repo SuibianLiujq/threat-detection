@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append('..')
 import datetime, re, os, json, socket, struct
 import lpm, parser_config
 import logging
