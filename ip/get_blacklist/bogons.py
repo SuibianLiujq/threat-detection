@@ -16,7 +16,7 @@ def bogons_ip(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download bogons timeout!!!")
+        mylog.warning("[mal_ip] Download bogons timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

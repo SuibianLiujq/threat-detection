@@ -117,7 +117,7 @@ def get_self_filelist(keywords):
         path = get_store_path() + bpath + os.path.sep
         return flg, path
     except Exception, e:
-        mylog.error('config file error!')
+        mylog.error('[mal_ip] Parser_config error: config file error!')
         return 0, ''
 
 

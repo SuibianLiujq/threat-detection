@@ -38,16 +38,16 @@ def update_blacklist_module(flgnum):
                 # print status
             except Exception,e:
                 # print e
-                mylog.error(e)
+                mylog.error("[mal_ip] Update blacklist error:{0}".format(e))
 
 def main(tday,flgnum):
     mylog=set_logger()
     #print("Starting update command."), time.ctime()
-    mylog.info("{0}[mal_ip] Starting update command.{1}".format("-"*25,"-"*25))
+    mylog.info("[mal_ip] Starting update command.")
     # dirpath=".\data\\%s\\"%tday
     dirpath=parser_config.get_store_path()+str(tday)+os.path.sep
     if(not os.path.exists(dirpath)):
         os.mkdir(dirpath)
     update_blacklist_module(flgnum)
     # print("update finish."), time.ctime()
-    mylog.info("{0}[mal_ip] update finish.{1}".format("-"*30,"-"*30))
+    mylog.info("[mal_ip] Update finish.")

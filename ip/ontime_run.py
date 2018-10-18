@@ -24,7 +24,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
     mylog=set_logger()
     try:
         # print("Starting check command."), time.ctime()
-        mylog.info("{0}[mal_ip] Starting check command.Time is:{1} {2}".format("="*12,(startTime).strftime('%Y-%m-%d %H:%M:%S'),"="*12))
+        mylog.info("[mal_ip] Starting check command.Time is:{0}".format((startTime).strftime('%Y-%m-%d %H:%M:%S')))
         # execute the command
         gte = (startTime - delta-offset).strftime('%Y-%m-%d %H:%M:%S')
         lte = (startTime-offset).strftime('%Y-%m-%d %H:%M:%S')
@@ -37,7 +37,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
         # check
         all_ip=match_insert.main(tday,indx,gte,lte,aggs_name,timestamp,serverNum,dport,time_zone,query_strs)
         # print("check finish."), time.ctime()
-        mylog.info("{0}[mal_ip] check finish.{1}".format("="*30,"="*30))
+        mylog.info("[mal_ip] Check finish.")
         # print"="*40
         return all_ip
 
@@ -67,7 +67,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
             os.mkdir(dirpath)
         while datetime.datetime.now() < startTime:
             #print('time sleep...')
-            mylog.info("Time sleeping ...")
+            mylog.info("[mal_ip] Time sleeping ...")
             time.sleep((startTime-datetime.datetime.now()).total_seconds())
         try:
             # st=time.clock()
@@ -82,14 +82,14 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
             flg_C2=parser_config.get_ip_secondcheck()
             if(flg_C2==1):
                 # 从info中IP检查，提升为warn
-                mylog.info('info_IP size:{}'.format(len(all_IP)))
+                mylog.info('[mal_ip] Info_IP size:{}'.format(len(all_IP)))
                 ip_check_C2.main(startTime,all_IP,serverNum,dport,indx)
             startTime = startTime + delta
             flgnum+=1
             # runtime=time.clock()-st# get the time of whole process
         except Exception, e:
             # print e
-            mylog.error(e)
+            mylog.error("[mal_ip] Ontime_run error:{0}".format(e))
 
 
 if __name__=="__main__":

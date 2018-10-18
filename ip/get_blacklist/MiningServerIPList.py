@@ -26,7 +26,7 @@ def MiningServerIPList(mylog):
         # date = time_mediate[5]+'-'+time_mediate[4]+'-'+time_mediate[3]
         del result[:8]
     except Exception,e:
-        mylog.warning("download MiningServerIP timeout!!!")
+        mylog.warning("[mal_ip] Download MiningServerIP timeout!!!")
         result=[]
         date=''
     ip_dict = {}

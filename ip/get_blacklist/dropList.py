@@ -16,7 +16,7 @@ def dropList(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download dropList timeout!!!")
+        mylog.warning("[mal_ip] Download dropList timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

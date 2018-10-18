@@ -14,7 +14,7 @@ def firehol_level1(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download firehol timeout!!!")
+        mylog.warning("[mal_ip] Download firehol timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

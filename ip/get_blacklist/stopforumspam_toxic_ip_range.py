@@ -16,7 +16,7 @@ def stopforumspam_toxic_ip_range(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download spam timeout!!!")
+        mylog.warning("[mal_ip] Download spam timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

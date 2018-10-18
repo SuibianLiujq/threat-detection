@@ -12,13 +12,13 @@ def bitnodes(mylog):
         http = requests.get('https://bitnodes.earn.com/api/v1/snapshots/latest/',verify=False,timeout=120)
         neir = http.text
     except Exception, e:
-        mylog.warning("download bitnodes timeout!!!")
+        mylog.warning("[mal_ip] Download bitnodes timeout!!!")
         neir='{}'
     #mylog.info('loading json data from html.')
     try:
         neir_json = json.loads(neir)
     except Exception, e:
-        mylog.error('[bitnodes] load json ERROR')
+        mylog.error('[mal_ip] Load json(bitnodes) ERROR')
         neir_json={}
     if neir_json:
         result = neir_json['nodes'].keys()

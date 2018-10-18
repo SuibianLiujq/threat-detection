@@ -16,7 +16,7 @@ def feodo_ip(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download feodo_ip timeout!!!")
+        mylog.warning("[mal_ip] Download feodo_ip timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

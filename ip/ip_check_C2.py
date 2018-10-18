@@ -272,7 +272,7 @@ class ESclient(object):
         return allrecord
 
     def secondcheck(self,gte1,gte2,lte,time_zone,dip,index,mylog):
-        mylog.info('*=*=*=[start second check.]*=*=*=')
+        # mylog.info('*=*=*=[start second check.]*=*=*=')
         # check sip，dip in last 5 mins
         siplis=self.check_5mins(gte1,lte,time_zone,dip,index,mylog)
         # check sip，dip in last 24h
@@ -352,15 +352,17 @@ def main(startTime,all_IP,serverNum,dport,index="tcp-*"):
     allwarn={}# {dip:[sip,sip,sip...],ip:[],...},
 
     try:
+        mylog.info('[mal_ip] Start second check.')
         for dip in all_IP.keys():
             allwarn[dip]=es.secondcheck(gte1,gte2,lte,time_zone,dip,index,mylog)
+        mylog.info('[mal_ip] Second check finish.')
     except Exception,e:
-        mylog.error('second_check:{}'.format(e))
+        mylog.error('[mal_ip] Second_check error:{}'.format(e))
     # Storm suppression
     #mylog.info("[start Storm suppression!]")
     warnLis=blacklist_tools.get_global_value('warn')# insert records
     if(warnLis==None):
-        mylog.error('global name error!')
+        mylog.error('[mal_ip] Storm error: global name error!')
         subWarn={}
     else:
         # get warnLis size
@@ -380,4 +382,4 @@ def main(startTime,all_IP,serverNum,dport,index="tcp-*"):
     try:
         searchAndInsert(all_IP,subWarn,es,mylog)
     except Exception,e:
-        mylog.error('searchAndInsert:{}'.format(e))
+        mylog.error('[mal_ip] SearchAndInsert error:{}'.format(e))

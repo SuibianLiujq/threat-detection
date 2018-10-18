@@ -17,7 +17,7 @@ def dshield_subnet(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download dshield_subnet timeout!!!")
+        mylog.warning("[mal_ip] Download dshield_subnet timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

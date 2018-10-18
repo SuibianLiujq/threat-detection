@@ -16,7 +16,7 @@ def ssl_abuse(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download ssl_abuse timeout!!!")
+        mylog.warning("[mal_ip] Download ssl_abuse timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}

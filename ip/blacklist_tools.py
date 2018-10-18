@@ -179,7 +179,7 @@ def load_whitelist(whitepath):
                     'desc_subtype': 'local whitelist ip'
                 }
     else:
-        mylog.info('no whitelist path!')
+        mylog.warn('[mal_ip] NO whitelist path!')
     return datadic
 
 
@@ -202,9 +202,9 @@ def load_blacklist(blackpath):
                             'mapping_ip': linelis[0],
                         }
         except Exception, e:
-            mylog.error('load local blacklist:{}'.format(e))
+            mylog.error('[mal_ip] Load local blacklist:{}'.format(e))
     else:
-        mylog.info('no blacklist path!')
+        mylog.warn('[mal_ip] NO blacklist path!')
     return datadic
 
 

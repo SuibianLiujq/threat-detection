@@ -16,7 +16,7 @@ def bambenek_ip(mylog):
         lines = neir.split('\n')
         del lines[-1]
     except Exception, e:
-        mylog.warning("download bambenek timeout!!!")
+        mylog.warning("[mal_ip] Download bambenek timeout!!!")
         lines=[]
     # print lines
     ip_dict = {}
