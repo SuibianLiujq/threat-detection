@@ -82,7 +82,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
             flg_C2=parser_config.get_ip_secondcheck()
             if(flg_C2==1):
                 # 从info中IP检查，提升为warn
-                mylog.info('[mal_ip] Info_IP size:{}'.format(len(all_IP)))
+                mylog.debug('[mal_ip] Info_IP size:{}'.format(len(all_IP)))
                 ip_check_C2.main(startTime,all_IP,serverNum,dport,indx)
             startTime = startTime + delta
             flgnum+=1

@@ -137,7 +137,7 @@ def treatip(dataset,es_ip):
                 #filter procedure
                 fullmatchlist, segmentlist, subnet_lpm, subnet_full=blacklist_tools.whitelist_filter(fullmatchlist,segmentlist,subnet_lpm,subnet_full,whitedata)
         else:
-            mylog.info('[mal_ip] Match_insert error: no self_whitelist_path')
+            mylog.warn('[mal_ip] Match_insert warn: no self_whitelist_path')
 
     # return match results
     return fullmatchlist,segmentlist,subnet_lpm,subnet_full
@@ -205,7 +205,7 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
             tmpThreat[data[i]] = doc
             #mylog.info('insert fullmatch with xforce')
         except Exception, e:
-            mylog.error("[mal_ip] Match insert error:{0}".format(e))
+            #mylog.error("[mal_ip] Match insert error:{0}".format(e))
             doc = {}
             doc['level'] = msg[data[i]]['level']
             doc['type'] = 'mal_ip'
@@ -219,7 +219,7 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
             es_insert.es_index(doc)
             tmpThreat[data[i]] = doc
             # print 'full_match_insert'
-            mylog.info('[mal_ip] Insert fullmatch by defaut')
+            #mylog.info('[mal_ip] Insert fullmatch by defaut')
     return tmpThreat
 
 # 将lpm,range格式统一插入es
@@ -279,7 +279,7 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
             tmpThreat[ip_es] = doc
             #mylog.info('insert {0} with xforce'.format(match_types))
         except Exception, e:
-            mylog.error(e)
+            #mylog.error("[mal_ip] Other match_type error:{0}".format(e))
             doc = {}
             # segment insert
             ip_es=data[i].keys()[0]# get alert ip
@@ -303,7 +303,7 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
             doc['index'] = index
             tmpThreat[ip_es] = doc
             # print 'subnet_lpm_insert'
-            mylog.info('[mal_ip] Insert {0} by default'.format(match_types))
+            #mylog.info('[mal_ip] Insert {0} by default'.format(match_types))
     return tmpThreat
 
 #get four dateset from four match methods , insert separately
@@ -384,7 +384,7 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
     es = ESclient(server =serverNum,port=dport)
     # mylog.info('connected with es')
     ip_es_list = es.get_es_ip(index,gte,lte,aggs_name,time_zone,querys_str)
-    mylog.info('[mal_ip] ES data size:%d '%len(ip_es_list))
+    mylog.debug('[mal_ip] ES data size:%d '%len(ip_es_list))
     # 检查下载的网络情报
     if(filelist):
         try:

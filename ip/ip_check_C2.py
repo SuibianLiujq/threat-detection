@@ -352,10 +352,10 @@ def main(startTime,all_IP,serverNum,dport,index="tcp-*"):
     allwarn={}# {dip:[sip,sip,sip...],ip:[],...},
 
     try:
-        mylog.info('[mal_ip] Start second check.')
+        mylog.debug('[mal_ip] Start second check.')
         for dip in all_IP.keys():
             allwarn[dip]=es.secondcheck(gte1,gte2,lte,time_zone,dip,index,mylog)
-        mylog.info('[mal_ip] Second check finish.')
+        mylog.debug('[mal_ip] Second check finish.')
     except Exception,e:
         mylog.error('[mal_ip] Second_check error:{}'.format(e))
     # Storm suppression
