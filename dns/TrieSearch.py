@@ -262,7 +262,7 @@ def main(gte,lte,timestamp,time_zone):
 								if syslogger:
 									syslogger.info(doc)
 		except Exception as e:
-			log.error("Insert the alert of theat DNS to ES failed.\n{0}".format(e))
+			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
 
 # if __name__ == '__main__':
