@@ -244,23 +244,24 @@ def main(gte,lte,timestamp,time_zone):
 				answer_list = get_answer_list(search_result)
 				dip_list = dip_list + answer_list
 				for answer in answer_list:
-					doc['answer'] = answer
+					doc_temp = dict(doc)
+					doc_temp['answer'] = answer
 					if ipv4_pattern.findall(answer):
-						doc['dip'] = answer
-					es.es_index(doc)
+						doc_temp['dip'] = answer
+					es.es_index(doc_temp)
 					if syslogger:
-						syslogger.info(doc)
+						syslogger.info(doc_temp)
 #					print doc
 					if ipv4_pattern.findall(answer):
 						sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=answer)
 #						print sip_list
 						if sip_list:
 							for sip in sip_list:
-								doc["sip"] = sip
-								doc["level"] = "warn"
-								es.es_index(doc)
+								doc_temp["sip"] = sip
+								doc_temp["level"] = "warn"
+								es.es_index(doc_temp)
 								if syslogger:
-									syslogger.info(doc)
+									syslogger.info(doc_temp)
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
