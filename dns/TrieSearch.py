@@ -77,7 +77,7 @@ class ESclient(object):
 					"must": [
 						{
 							"query_string": {
-							"query": "domain:{0} AND isresponse:1".format(domain),
+							"query": "domain:{0} AND isresponse:1 AND retcode_num:0".format(domain),
 							'analyze_wildcard': True
 							}
 						},

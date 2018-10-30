@@ -54,13 +54,14 @@ function stop_module() {
 	
 	if [ "x${oldpid}" = "x" ]; then
 		echo "${1} is already stopped."
-	fi
-
-	cmd="kill ${oldpid}"
+	else
+		cmd="kill ${oldpid}"
 	
-	printf "Stop ${1} ...\r"
-	${cmd}
-	sleep 1
+		printf "Stop ${1} ...\r"
+		${cmd}
+
+		sleep 1
+	fi
 	
 	newpid=`get_pid ${1}`
 	if [ "x${newpid}" = "x" ]; then
