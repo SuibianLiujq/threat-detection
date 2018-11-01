@@ -40,22 +40,22 @@ import os
 
 def update_dict(dict1,dict2):
 	# 合并两个字典
-	domain_insection = set(dict1.keys()) & set(dict2.keys())
+	# domain_insection = set(dict1.keys()) & set(dict2.keys())
 	# print domain_insection
 	ret_dict = dict(dict1,**dict2)
-	if domain_insection: 
-		#如果两个源存在相同domain情报
-		for domain in domain_insection:
-			temp_dict = {}
-			for key in dict1[domain].keys():
-				#合并前先两个情报源关于domain的情报是否有重合
-				if dict2[domain].get(key):
-					#如果情报有重合，看是否相同，不同则用';'分割记录
-					if dict1[domain][key] != dict2[domain][key]:
-						temp_dict[key] = dict1[domain][key]+';'+dict2[domain][key]
-				else:
-					temp_dict[key] = dict1[domain][key]
-			ret_dict[domain] = dict(dict2[domain],**temp_dict)
+	# if domain_insection: 
+	# 	#如果两个源存在相同domain情报
+	# 	for domain in domain_insection:
+	# 		temp_dict = {}
+	# 		for key in dict1[domain].keys():
+	# 			#合并前先两个情报源关于domain的情报是否有重合
+	# 			if dict2[domain].get(key):
+	# 				#如果情报有重合，看是否相同，不同则用';'分割记录
+	# 				if dict1[domain][key] != dict2[domain][key]:
+	# 					temp_dict[key] = dict1[domain][key]+';'+dict2[domain][key]
+	# 			else:
+	# 				temp_dict[key] = dict1[domain][key]
+	# 		ret_dict[domain] = dict(dict2[domain],**temp_dict)
 
 	return ret_dict 
 
