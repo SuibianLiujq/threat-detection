@@ -8,8 +8,8 @@
 	],
 
 	"index": {
-		"dns": "dns",
-		"tcp": "tcp"
+		"dns": "dns-agg",
+		"tcp": "tcp-agg"
 	},
 
 	"others": {
