@@ -13,12 +13,15 @@ def MiningServerIPList(mylog):
         http = requests.get('https://zerodot1.gitlab.io/CoinBlockerLists/MiningServerIPList.txt',verify=False,timeout=120)
         neir = http.text
         result=neir.split('\n')
+        date=''
         for line in result:
             if('#' in line and 'Last modified' in line):
                 timelist=line.split(':')
                 date=timelist[1].strip()+':'+timelist[2].strip()
                 break
                 # date=datetime.datetime.strftime(tmpdate,'%Y-%m-%d %H:%M')
+            else:
+                date=''
         # html = etree.HTML(neir)
         # result = html.xpath('//td[starts-with(@id,"LC")]/text()')
         # time_source = result[4]
