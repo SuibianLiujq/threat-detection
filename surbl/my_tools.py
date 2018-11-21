@@ -8,7 +8,7 @@
 
 import sys,os
 import json,os,time,datetime
-sys.path.append("../")
+sys.path.append("..")
 from ip import check_XForce as xf
 from global_tools import set_logger
 
