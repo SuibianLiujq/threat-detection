@@ -5,9 +5,10 @@
 # @File    : my_tools.py
 # @Software: PyCharm
 # all functions are implemented in this file.
-import json,os,time,datetime
+
 import sys
 sys.path.append('..')
+import json,os,time,datetime
 from global_tools import set_logger
 from ip import check_XForce as xf
 

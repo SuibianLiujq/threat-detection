@@ -4,10 +4,11 @@
 # @Author  : songh
 # @File    : check_dns.py
 # @Software: PyCharm
-import ES_class,my_tools
-import time,datetime
+
 import sys
 sys.path.append('..')
+import ES_class,my_tools
+import time,datetime
 from global_tools import set_logger
 
 '''
