@@ -3,7 +3,7 @@
 PYTHON="/opt/python"
 MAL_DNS="./dns/run_mal_dns.py"
 MAL_IP="./ip/ontime_run.py"
-SURBL="./surbl/main.py
+SURBL="./surbl/main.py"
 
 ARG_ACTION=${1}
 
