@@ -4,10 +4,10 @@
 # @Author  : songh
 # @File    : main.py
 # @Software: PyCharm
-import datetime,time
-import my_tools,check_dns
 import sys
 sys.path.append('..')
+import datetime,time
+import my_tools,check_dns
 from global_tools import set_logger
 
 '''
