@@ -31,15 +31,11 @@ with open(__conf_global, 'r') as f:
 
 #======================================
 
-# 清洗 dns的数据
-def clean_dns_data(dataset):
-    pass
-
 
 # 获取 conf文件 启动时间
 def get_starttime():
     time_info=__conf_g["time"]
-    tmp=time_info["start"]
+    tmp=time_info["startTime"]
     starttime=datetime.datetime.now()
     if(not(tmp == "now")):
         starttime=datetime.datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
