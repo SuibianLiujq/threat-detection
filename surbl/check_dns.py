@@ -7,8 +7,8 @@
 
 import sys
 sys.path.append('..')
-import ES_class,my_tools
-import time,datetime
+import ES_class
+import my_tools
 from global_tools import set_logger
 
 '''

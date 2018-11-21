@@ -6,7 +6,8 @@
 # @Software: PyCharm
 import sys
 sys.path.append('..')
-import datetime,time
+import datetime
+import time
 import my_tools,check_dns
 from global_tools import set_logger
 
