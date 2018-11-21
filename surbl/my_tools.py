@@ -25,11 +25,11 @@ def get_json(file):
 # fpath=os.getcwd()
 # files=fpath+os.path.sep+"conf_surbl.json"
 # __conf_dt__=get_json(files)
-__conf_global = os.path.join(os.path.abspath(os.path.pardir), "cfg/conf_global.json")
+__conf_global = os.path.join(os.path.join(os.path.split(__file__)[0],"../"), "cfg/conf_global.json")
 with open(__conf_global, 'r') as f:
     __conf_g = json.loads(f.read())
 
-__conf_surbl = os.path.join(os.path.abspath(os.path.pardir), "cfg/conf_surbl.json")
+__conf_surbl = os.path.join(os.path.join(os.path.split(__file__)[0],"../"), "cfg/conf_surbl.json")
 with open(__conf_surbl, 'r') as f:
     __conf_bl = json.loads(f.read())
 
