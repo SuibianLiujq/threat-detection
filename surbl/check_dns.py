@@ -6,9 +6,9 @@
 # @Software: PyCharm
 
 import sys,os
-sys.path.append(os.path.abspath(os.path.pardir))
 import ES_class
 import my_tools
+sys.path.append(os.path.abspath(os.path.pardir))
 from global_tools import set_logger
 
 '''

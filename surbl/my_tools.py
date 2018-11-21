@@ -7,10 +7,11 @@
 # all functions are implemented in this file.
 
 import sys,os
-sys.path.append("../global_tools/")
 import json,os,time,datetime
-from global_tools import set_logger
 from ip import check_XForce as xf
+sys.path.append("../global_tools/")
+from global_tools import set_logger
+
 
 # read configuration file
 def get_json(file):
