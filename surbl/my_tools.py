@@ -7,7 +7,7 @@
 # all functions are implemented in this file.
 
 import sys,os
-sys.path.append(os.path.abspath(os.path.pardir))
+sys.path.append("../global_tools")
 import json,os,time,datetime
 from global_tools import set_logger
 from ip import check_XForce as xf
