@@ -4,8 +4,8 @@
 # @Author  : songh
 # @File    : main.py
 # @Software: PyCharm
-import sys
-sys.path.append('..')
+import sys,os
+sys.path.append(os.path.abspath(os.path.pardir))
 import datetime
 import time
 import my_tools,check_dns

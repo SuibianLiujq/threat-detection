@@ -6,8 +6,8 @@
 # @Software: PyCharm
 # all functions are implemented in this file.
 
-import sys
-sys.path.append('..')
+import sys,os
+sys.path.append(os.path.abspath(os.path.pardir))
 import json,os,time,datetime
 from global_tools import set_logger
 from ip import check_XForce as xf
