@@ -5,7 +5,8 @@
 # @File    : main.py
 # @Software: PyCharm
 import sys,os
-sys.path.append(os.path.abspath(os.path.pardir))
+sys.path.append("../global_tools/")
+# sys.path.append(os.path.abspath(os.path.pardir))
 import datetime
 import time
 import my_tools,check_dns
