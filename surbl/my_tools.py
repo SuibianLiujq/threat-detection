@@ -8,7 +8,7 @@
 
 import sys, os
 
-sys.path.append("..")
+sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
 from ip import check_XForce as xf
 from global_tools import set_logger
 import json, os, time, datetime
@@ -30,7 +30,7 @@ with open(__conf_global, 'r') as f:
     __conf_g = json.loads(f.read())
 
 __conf_surbl = os.path.join(os.path.abspath(os.path.pardir), "cfg/conf_surbl.json")
-with open(__conf_global, 'r') as f:
+with open(__conf_surbl, 'r') as f:
     __conf_bl = json.loads(f.read())
 
 

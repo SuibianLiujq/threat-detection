@@ -5,7 +5,7 @@
 # @File    : main.py
 # @Software: PyCharm
 import sys,os
-sys.path.append("..")
+sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
 # sys.path.append(os.path.abspath(os.path.pardir))
 import datetime
 import time
