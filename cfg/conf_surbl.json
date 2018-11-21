@@ -1,0 +1,8 @@
+{
+  "time":{
+    "interval":"24h"
+  },
+  "es_info":{
+    "data_index":"dns-agg-*"
+  }
+}
