@@ -136,7 +136,7 @@ def main(es,gte,lte,time_zone,dip):
 	result = query_last(es=es,gte=gte,lte=lte,time_zone=time_zone,dip=dip)
 	sip_list = []
 	if 'aggregations' not in result:
-		log.error('[mal_dns] Index not exists.')
+		log.error('[mal_dns] Index {0} not exists.'.format(ES_config["tcp_index"]))
 		return[]
 	for sip in result["aggregations"]["sip"]["buckets"]:
 		sip_list.append(sip["key"])
