@@ -1,6 +1,6 @@
 {
   "ES_info":{
-    "index":"tcp-*",
+    "index":"tcp-agg-*",
     "aggs_name":"dip",
     "query":"NOT dip:[192.168.0.0 TO 192.168.255.255] AND NOT dip:[172.16.0.0 TO 172.31.255.255] AND NOT dip:[10.0.0.0 TO 10.255.255.255] AND NOT dport:445 AND unknown_conn:0"
   },
@@ -27,7 +27,6 @@
     "ssl_abuse":"3",
     "ZeuS_ip":"6",
     "bambenek_ip":"12",
-    "MiningServerIPList":"144",
     "dropList":"144"
   }
 }

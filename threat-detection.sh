@@ -3,11 +3,12 @@
 PYTHON="/opt/python"
 MAL_DNS="./dns/run_mal_dns.py"
 MAL_IP="./ip/ontime_run.py"
+SURBL="./surbl/main.py"
 
 ARG_ACTION=${1}
 
 declare -A run_dict
-run_dict=(["mal_dns"]=${MAL_DNS} ["mal_ip"]=${MAL_IP})
+run_dict=(["mal_dns"]=${MAL_DNS} ["mal_ip"]=${MAL_IP} ["surbl"]=${SURBL})
 
 function get_pid() {
 	echo `ps -ef|grep ${run_dict[${1}]}|grep -v grep|awk '{print $2}'`

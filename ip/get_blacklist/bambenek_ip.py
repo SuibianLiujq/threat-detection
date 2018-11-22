@@ -27,7 +27,9 @@ def bambenek_ip(mylog):
         else:
             linelist=line.split(',')# line = ' ip,type,date,source'
             subtype=linelist[1].split('by')[-1].strip().replace(' ','_')
-            subtype2=subtype.split('_')[1].lower()
+            subtype2=subtype.split('_')[-1].lower()
+            if('/' in subtype):
+                subtype=subtype.replace('/','or')
             ip_dict[linelist[0]] = {
                 'subtype':subtype2,
                 'desc_subtype':'{} ip;source:http://osint.bambenekconsulting.com/feeds/c2-ipmasterlist.txt'.format(subtype),

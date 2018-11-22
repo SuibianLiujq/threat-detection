@@ -5,7 +5,7 @@
 
 	"es_server": {
 		"server": "localhost",
-		"port": 9222,
+		"port": 9200,
 		"alert_index": "alert"
 	},
 

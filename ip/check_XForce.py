@@ -3,16 +3,16 @@
 # author: songh
 '''
 this file constructs a function to get infomation from IBM X-Force
+now this file is independent
 '''
 from requests.auth import HTTPBasicAuth
 import time,requests
 # import urllib2
 # from bs4 import BeautifulSoup as bs
 # from selenium import webdriver
-import blacklist_tools
+# import blacklist_tools
 import os,datetime
 import json
-from global_tools import set_logger
 
 # define  ===============================================
 # 预定义
@@ -33,6 +33,33 @@ mydate=datetime.datetime.now()
 months=str(mydate.year)+'-'+str(mydate.month)
 filename='XForce-{0}.json'.format(months)
 #====================================================
+def load_dict(filedir):
+	'''
+	加载本地的json文件
+	'''
+	dict1={}
+	try:
+		with open(filedir,'r') as f:
+			dict1=json.loads(f.read())
+	except IOError:
+		print 'load_dict Error'
+	return dict1
+
+def temp_store(dict,name):
+	'''
+	保存为json
+	'''
+	tmp=name[-5:]
+	if(tmp=='.json'):
+		file_name=name
+	else:
+		file_name = name+ '.json'
+	try:
+		with open(file_name,'w') as f:
+			f.write(json.dumps(dict))
+	except IOError:
+		print 'temp_store Error'
+
 
 def bydefaut_struct(names):
     results={}
@@ -146,7 +173,7 @@ def start(stype,values,checkflg=1):
             os.mkdir(lpath)
         fpath=lpath+filename
         if(os.path.exists(fpath)):
-            ldic=blacklist_tools.load_dict(fpath)
+            ldic=load_dict(fpath)
             ldata=ldic.keys()#all ips and urls
         else:
             ldic={}
@@ -182,17 +209,27 @@ def start(stype,values,checkflg=1):
     if(checkflg==1):#merge into local file
         ldic=dict(ldic,**tmp_dic)
         # save
-        blacklist_tools.temp_store(ldic,fpath)
+        temp_store(ldic,fpath)
     #merge result
     final_dic=dict(final_dic,**tmp_dic)
-    #print json.dumps(final_dic,indent=4)
+    # print json.dumps(final_dic,indent=4)
     return final_dic
 
 
 if __name__ == '__main__':
     # for examples:
-    stype=1
-    value=['213.186.33.5','151.80.144.253']
-    # stype=2
-    # value=["asfdaon.com"]
+    # stype=1
+    # value=['213.186.33.5','151.80.144.253']
+    stype=2
+    value=["lookingforgood.su"]
+    '''
+    {
+        "binien.com": {
+            "cats": {
+                "Spam URLs": true
+            }, 
+            "score": 10
+        }
+    }
+    '''
     start(stype,value)
