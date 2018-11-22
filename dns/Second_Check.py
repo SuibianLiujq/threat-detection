@@ -3,7 +3,7 @@
 
 import json
 import datetime
-from conf import ES_config
+from conf import ES_config, log
 
 def query_last(es,gte,lte,time_zone,dip):
 	search_option = {
@@ -148,9 +148,7 @@ def main(es,gte,lte,time_zone,dip):
 	res = get_date_flow(es=es,gte=gt,lte=lte,time_zone=time_zone,dip=dip,sip_list=sip_list)
 
 	ret_siplist = []
-	if 'aggregations' not in res:
-		log.error('[mal_dns] Index not exists.')
-		return[]
+
 	# 循环对每组 sip-dip 进行分析
 	for sip_item in res["aggregations"]["sip"]["buckets"]:
 		# 该组 sip-dip 的数据量太小则不再进一步分析
