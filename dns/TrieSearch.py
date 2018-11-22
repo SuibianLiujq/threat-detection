@@ -160,12 +160,18 @@ def find_match_DNS(Trie,split_DNSList):
 def get_split_DNSList(search_result):
 	# 清洗es获得的数据
 	split_DNSList=[]
+	if 'aggregations' not in search_result:
+		log.info('[mal_dns] Index not exists.')
+		return []
 	for item in search_result[u'aggregations'][u'domain'][u'buckets']:
 		split_DNSList.append(item[u'key'].encode('unicode-escape').split('.'))
 	return split_DNSList
 
 def get_answer_list(search_result):
 	answer_list = []
+	if 'aggregations' not in search_result:
+		log.info('[mal_dns] Index not exists.')
+		return []
 	for answer_bucket in search_result[u'aggregations'][u'answer'][u'buckets']:
 		answer = answer_bucket[u'key'].encode('unicode-escape')
 		answer_list.append(answer)
