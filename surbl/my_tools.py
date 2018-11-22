@@ -97,12 +97,12 @@ def rebuild_alert_info(domain, answer, xfinfo, ansinfo):
     lis_str = ','.join(ansinfo)
     doc["desc_subtype"] = "[spam] The suspect domain has been listed on {0} by surbl".format(lis_str)
     doc["level"] = "info"
-    # xforce message
+    # xforce message ,修改日志内容
     try:
         doc["xforce_marks"] = int(xfinfo[domain]["score"])
     except Exception, e:
-        mylog.warn("[surbl] xforce message error on marks:{0}".format(e))
-        mylog.warn("[surbl] xforce message:{0}".format(json.dumps(xfinfo)))
+        mylog.debug("[surbl] xforce message error on marks:{0}".format(e))
+        mylog.debug("[surbl] xforce message:{0}".format(json.dumps(xfinfo)))
         doc["xforce_marks"] = 0
 
     try:
@@ -114,8 +114,8 @@ def rebuild_alert_info(domain, answer, xfinfo, ansinfo):
             cats_str = ','.join(cats_lis)
             doc["xforce_msg"] = "cats:" + cats_str
     except Exception, e:
-        mylog.warn("[surbl] xforce message error on msg:{0}".format(e))
-        mylog.warn("[surbl] xforce message:{0}".format(json.dumps(xfinfo)))
+        mylog.debug("[surbl] xforce message error on msg:{0}".format(e))
+        mylog.debug("[surbl] xforce message:{0}".format(json.dumps(xfinfo)))
         doc["xforce_msg"] = None
 
     return doc
