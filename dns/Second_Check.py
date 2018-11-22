@@ -136,7 +136,7 @@ def main(es,gte,lte,time_zone,dip):
 	result = query_last(es=es,gte=gte,lte=lte,time_zone=time_zone,dip=dip)
 	sip_list = []
 	if 'aggregations' not in search_result:
-		log.info('[mal_dns] Index not exists.')
+		log.error('[mal_dns] Index not exists.')
 		return[]
 	for sip in result["aggregations"]["sip"]["buckets"]:
 		sip_list.append(sip["key"])
@@ -149,7 +149,7 @@ def main(es,gte,lte,time_zone,dip):
 
 	ret_siplist = []
 	if 'aggregations' not in search_result:
-		log.info('[mal_dns] Index not exists.')
+		log.error('[mal_dns] Index not exists.')
 		return[]
 	# 循环对每组 sip-dip 进行分析
 	for sip_item in res["aggregations"]["sip"]["buckets"]:
