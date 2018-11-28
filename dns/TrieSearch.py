@@ -252,9 +252,9 @@ def main(gte,lte,timestamp,time_zone):
 						dip_list.append(answer)
 				if dip_list:
 					doc['dip'] = dip_list
-				es.es_index(doc_temp)
+				es.es_index(doc)
 				if syslogger:
-					syslogger.info(doc_temp)
+					syslogger.info(doc)
 #				print doc
 
 				doc.pop( "answer", "")
@@ -265,9 +265,9 @@ def main(gte,lte,timestamp,time_zone):
 						doc['dip'] = dip
 						doc["sip"] = sip_list
 						doc["level"] = "warn"
-						es.es_index(doc_temp)
+						es.es_index(doc)
 						if syslogger:
-							syslogger.info(doc_temp)
+							syslogger.info(doc)
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
