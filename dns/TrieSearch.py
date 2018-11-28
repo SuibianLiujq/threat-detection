@@ -223,7 +223,6 @@ def main(gte,lte,timestamp,time_zone):
 	log.debug('Match DNS blacklist : {0}'.format(match_blacklist))
 	# 匹配的DNS回插到es
 	if match_DNSList:
-		dip_list = []
 		ipv4_pattern = re.compile('^(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$')
 		try:
 			blacklist = load_dict(blacklist_dir)
@@ -245,26 +244,30 @@ def main(gte,lte,timestamp,time_zone):
 					continue
 				search_result = es.get_domain_info(gte=gte,lte=lte,domain=domain_es,time_zone=time_zone)
 				answer_list = get_answer_list(search_result)
-				dip_list = dip_list + answer_list
+				
+				doc['answer'] = answer_list
+				dip_list = []
 				for answer in answer_list:
-					doc_temp = dict(doc)
-					doc_temp['answer'] = answer
 					if ipv4_pattern.findall(answer):
-						doc_temp['dip'] = answer
-					es.es_index(doc_temp)
-					if syslogger:
-						syslogger.info(doc_temp)
-#					print doc
-					if ipv4_pattern.findall(answer):
-						sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=answer)
-#						print sip_list
-						if sip_list:
-							for sip in sip_list:
-								doc_temp["sip"] = sip
-								doc_temp["level"] = "warn"
-								es.es_index(doc_temp)
-								if syslogger:
-									syslogger.info(doc_temp)
+						dip_list.append(answer)
+				if dip_list:
+					doc['dip'] = dip_list
+				es.es_index(doc_temp)
+				if syslogger:
+					syslogger.info(doc_temp)
+#				print doc
+
+				doc.pop( "answer", "")
+				for dip in dip_list:
+					sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=dip)
+#					print sip_list
+					if sip_list:
+						doc['dip'] = dip
+						doc["sip"] = sip_list
+						doc["level"] = "warn"
+						es.es_index(doc_temp)
+						if syslogger:
+							syslogger.info(doc_temp)
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
