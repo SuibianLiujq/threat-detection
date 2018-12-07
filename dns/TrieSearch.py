@@ -264,7 +264,9 @@ def main(gte,lte,timestamp,time_zone):
 
 				sip_answer_dict = get_sip_answer_dict(search_result)
 				
-				for sip, answer_list in sip_answer_dict:
+				for sip in sip_answer_dict:
+					answer_list = sip_answer_dict[sip]
+
 					doc['sip'] = sip
 					doc['answer'] = answer_list
 			
