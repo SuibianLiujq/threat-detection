@@ -99,6 +99,14 @@ class ESclient(object):
 				"excludes": []
 			},
 			"aggs": {
+				"sip": {
+					"terms": {
+						"field": "dip",
+						"size": 50,
+						"order": {
+							"_count": "desc"
+						}
+					},
 					"answer": {
 						"terms": {
 							"field": "answer",
@@ -110,6 +118,7 @@ class ESclient(object):
 					}
 				}
 			}
+		}
 
 		search_result=self.__es_client.search(
 			index='{0}-*'.format(ES_config["dns_index"]),
@@ -167,12 +176,18 @@ def get_split_DNSList(search_result):
 		split_DNSList.append(item[u'key'].encode('unicode-escape').split('.'))
 	return split_DNSList
 
-def get_answer_list(search_result):
-	answer_list = []
-	for answer_bucket in search_result[u'aggregations'][u'answer'][u'buckets']:
-		answer = answer_bucket[u'key'].encode('unicode-escape')
-		answer_list.append(answer)
-	return answer_list
+def get_sip_answer_dict(search_result):
+	sip_answer_dict = {}
+	for sip_bucket in search_result['aggregations']['sip']['buckets']:
+		sip = sip_bucket['key'].encode('unicode-escape')
+
+		answer_list = []
+		for answer_bucket in sip_bucket[u'answer'][u'buckets']:
+			answer = answer_bucket[u'key'].encode('unicode-escape')
+			answer_list.append(answer)
+
+		sip_answer_dict[sip] = answer_list
+	return sip_answer_dict
 
 def check_whitelist(match_DNSList,match_blacklist):
 	pattern = re.compile('\r\n|\n')
@@ -243,31 +258,36 @@ def main(gte,lte,timestamp,time_zone):
 						syslogger.info(doc)
 					continue
 				search_result = es.get_domain_info(gte=gte,lte=lte,domain=domain_es,time_zone=time_zone)
-				answer_list = get_answer_list(search_result)
-				
-				doc['answer'] = answer_list
-				dip_list = []
-				for answer in answer_list:
-					if ipv4_pattern.findall(answer):
-						dip_list.append(answer)
-				if dip_list:
-					doc['dip'] = dip_list
-				es.es_index(doc)
-				if syslogger:
-					syslogger.info(doc)
-#				print doc
 
-				doc.pop( "answer", "")
-				for dip in dip_list:
-					sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=dip)
-#					print sip_list
-					if sip_list:
-						doc['dip'] = dip
-						doc["sip"] = sip_list
-						doc["level"] = "warn"
-						es.es_index(doc)
-						if syslogger:
-							syslogger.info(doc)
+				sip_answer_dict = get_sip_answer_dict(search_result)
+				
+				for sip, answer_list in sip_answer_dict:
+					doc['sip'] = sip
+					doc['answer'] = answer_list
+			
+					dip_list = []
+					for answer in answer_list:
+						if ipv4_pattern.findall(answer):
+							dip_list.append(answer)
+					if dip_list:
+						doc['dip'] = dip_list
+						
+					es.es_index(doc)
+					if syslogger:
+						syslogger.info(doc)
+#					print doc
+
+					doc.pop( "answer", "")
+					for dip in dip_list:
+						sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=dip)
+#						print sip_list
+						if sip_list:
+							doc['dip'] = dip
+							doc["sip"] = sip_list
+							doc["level"] = "warn"
+							es.es_index(doc)
+							if syslogger:
+								syslogger.info(doc)
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
