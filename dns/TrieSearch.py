@@ -107,12 +107,15 @@ class ESclient(object):
 							"_count": "desc"
 						}
 					},
-					"answer": {
-						"terms": {
-							"field": "answer",
-							"size": 50,
-							"order": {
-								"_count": "desc"
+					"aggs": {
+						"answer": {
+							"terms": {
+								"field": "answer",
+								"size": 50,
+								"order": {
+									"_count": "desc"
+
+								}
 							}
 						}
 					}
@@ -271,7 +274,7 @@ def main(gte,lte,timestamp,time_zone):
 							dip_list.append(answer)
 					if dip_list:
 						doc['dip'] = dip_list
-						
+
 					es.es_index(doc)
 					if syslogger:
 						syslogger.info(doc)
