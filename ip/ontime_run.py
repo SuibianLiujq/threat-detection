@@ -73,7 +73,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
             # st=time.clock()
             #update source dataset
             if(updateFlg==1):
-                if(datetime.datetime.now()>updatetime):
+                if(datetime.datetime.now()>=updatetime):
                     update_blacklist.main(tday,flgnum)
                     updatetime=updatetime+delta
             # check interval time is 5mins
