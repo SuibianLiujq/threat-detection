@@ -28,19 +28,28 @@ def merge_blacklist(date,name):
     for file_name in parse_blacklist:
         if os.path.exists(file_name + '.json'):
             result = load_dict(file_name + '.json')
+            if not result:
+                log.warn("[mal_dns] {0} no data!".format(file_name))
+                delete_file()
+                return False
         else:
-            continue
+            log.warn("[mal_dns] {0} not found!".format(file_name))
+            delete_file
+            return False
         # print len(result)
         if i ==0:
             merge_result = result
+            i = 1
         else:
             merge_result = update_dict(result,merge_result)
-        i = i + 1
         # print len(merge_result)
     saveAsJSON(date,merge_result,data_path,name)
-    saveAsJSON("default",merge_result,data_path,name)
+    # saveAsJSON("default",merge_result,data_path,name)
 
-    for file_name in parse_blacklist:
+    delete_file()
+
+def delete_file():
+    for file_name in moudle_name:
         if os.path.exists(file_name+'.json'):
             os.remove(file_name+'.json')
 
@@ -48,11 +57,14 @@ def merge_blacklist(date,name):
 
 def store_trie(date, name):
     path = os.path.join(data_path , 'source' + "-" +date + '.json')
+    if not os.path.exists(path):
+        log.warn("[mal_dns] {0} not found!".format(path))
+        return False
     result = load_dict(path)
     # print result
     trie = create_Trie([x.split('.') for x in result.keys()])
     saveAsJSON(date,trie,data_path,name)
-    saveAsJSON("default",trie,data_path,name)
+    # saveAsJSON("default",trie,data_path,name)
 
 def main(storeDate):
     get_blacklist_module()

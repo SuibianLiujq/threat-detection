@@ -12,10 +12,14 @@ def get_tr_list(url):
 	'''
 	获取html页面，提取所有的'tr'标签
 	'''
-	response = requests.get(url)
-	bs = BeautifulSoup(response.text,"html.parser")
-	tr_list = bs.find_all('tr')
-	return tr_list
+	try:
+		response = requests.get( url, verify=False, timeout=120)
+		bs = BeautifulSoup( response.text, "html.parser")
+		tr_list = bs.find_all('tr')
+		return tr_list
+	except Exception as e:
+		return []
+	
 
 def zeustracker(url='https://zeustracker.abuse.ch/monitor.php?filter=all'):
 	'''
@@ -29,15 +33,18 @@ def zeustracker(url='https://zeustracker.abuse.ch/monitor.php?filter=all'):
 	u'5':'Hosted on a FastFlux botnet'
 	}
 	tr_list = get_tr_list(url)
+	if not tr_list: 
+		return {}
+
 	domain_dict = {}
 	for tr in tr_list[7:]:
 		td_list = tr.find_all('td')
 		host = td_list[2].get_text()
 		domain_dict[host] = {
-		'subtype': "c&c",
-		# 'desc_maltype':'[zeus] '+td_list[1].get_text()+'/'+tag[td_list[4].get_text()],
-		# 'status':td_list[5].get_text(),
-		'source':'https://zeustracker.abuse.ch/monitor.php?filter=all'
+			'subtype': "c&c",
+			# 'desc_maltype':'[zeus] '+td_list[1].get_text()+'/'+tag[td_list[4].get_text()],
+			# 'status':td_list[5].get_text(),
+			'source':'https://zeustracker.abuse.ch/monitor.php?filter=all'
 		}
 
 	return domain_dict

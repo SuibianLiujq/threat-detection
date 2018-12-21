@@ -10,7 +10,11 @@ from store_json import *
 
 def get_tr_list(url):
 	# 获取html页面，提取所有的'tr'标签
-	response = requests.get(url)
+	try:
+		response = requests.get(url, verify=False, timeout=120)
+	except Exception as e:
+		return []
+
 	bs = BeautifulSoup(response.text,"html.parser")
 	tr_list = bs.find_all('tr')
 	return tr_list
@@ -18,6 +22,9 @@ def get_tr_list(url):
 def ransomwaretracker(url = 'https://ransomwaretracker.abuse.ch/tracker/online/'):
 	# 清洗ransomwaretracker的数据
 	tr_list = get_tr_list(url)
+	if not tr_list:
+		return {}
+
 	domain_dict = {}
 	pattern_ip = re.compile('^[0-9.]+$')
 	# pattern_date = re.compile('^[0-9-]+')

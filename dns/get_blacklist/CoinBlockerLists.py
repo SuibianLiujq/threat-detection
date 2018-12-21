@@ -8,14 +8,18 @@ from store_json import *
 
 def CoinBlockerLists():
 	url = 'https://zerodot1.gitlab.io/CoinBlockerLists/list.txt'
-	f = urllib2.urlopen(url) 
+	try:
+		f = urllib2.urlopen(url, timeout=120) 
+	except Exception as e:
+		return {}
+
 	data = f.read().split('\n')[:-1]
 	# print data
 	domain_dict = {}
 	for domain in data:
 		domain_dict[domain] = {
 		'subtype':'mining',
-		'source':'https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html'
+		'source':'https://zerodot1.gitlab.io/CoinBlockerLists/list.txt'
 		}
 	return domain_dict
 
