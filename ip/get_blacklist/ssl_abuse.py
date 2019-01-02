@@ -2,7 +2,7 @@
 # _*_ Coding:UTF-8 _*_
 # author: songh
 
-import requests,time,datetime
+import requests,time
 from store_json import store_json
 from ip import blacklist_tools
 from global_tools import set_logger
@@ -36,7 +36,7 @@ def ssl_abuse(mylog):
                     'status':'unknown',
                     'dport':int(lis[2]),
                     'mapping_ip':lis[1],
-                    'date' : datetime.datetime.strptime(lis[0], '%Y-%m-%d %H:%M:%S')
+                    'date' : lis[0]
                 }
             # else:
             #     mylog.warn("[mal_ip] ssl_abuse data is no regular:{0}".format(lis))
