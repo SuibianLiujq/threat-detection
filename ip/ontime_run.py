@@ -90,6 +90,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
         except Exception, e:
             # print e
             mylog.error("[mal_ip] Ontime_run error:{0}".format(e))
+            startTime = startTime + delta
 
 
 if __name__=="__main__":

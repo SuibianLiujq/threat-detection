@@ -25,18 +25,18 @@ def ssl_abuse(mylog):
         if '#' in line:
             continue
         else:
-            lis=line.split(',')# line = 'DstIP,DstPort,Reason' -> lis =[DstIP,DstPort,Reason]
+            lis=line.split(',')# line = 'Firstseen,DstIP,DstPort' -> lis =[Firstseen,DstIP,DstPort]
             if(len(lis)==3):
-                tmpstr=lis[2].strip().replace(' ','_')
-                ip_dict[lis[0]] = {
-                    'subtype':tmpstr.split('_')[-1].lower(),
+                #tmpstr=lis[2].strip().replace(' ','_')
+                ip_dict[lis[1]] = {
+                    'subtype':"c&c",
                     'desc_subtype':'{} ip;source:https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'.format(lis[2]),
                     'level':'info',
                     'fp':'unknown',
                     'status':'unknown',
-                    'dport':int(lis[1]),
-                    'mapping_ip':lis[0],
-                    'date' : time.strftime('%Y-%m-%d',time.localtime(time.time()))
+                    'dport':int(lis[2]),
+                    'mapping_ip':lis[1],
+                    'date' : lis[0]
                 }
             # else:
             #     mylog.warn("[mal_ip] ssl_abuse data is no regular:{0}".format(lis))
