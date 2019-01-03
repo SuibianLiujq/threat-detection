@@ -251,6 +251,7 @@ def main(gte,lte,timestamp,time_zone):
 				source = doc.pop('source')
 				doc['domain'] = domain_es
 				doc['@timestamp'] = timestamp
+				doc['level'] = "info"
 				doc['type'] = "mal_dns"
 				doc['desc_type'] = "[mal_dns] Request of Malicious Domain Name Detection"
 				doc['desc_subtype'] = "[{0}] Intelligence comes from:{1}".format(doc['subtype'],source)
@@ -276,6 +277,8 @@ def main(gte,lte,timestamp,time_zone):
 							dip_list.append(answer)
 					if dip_list:
 						doc['dip'] = dip_list
+					else:
+						doc.pop( "dip", "")
 
 					es.es_index(doc)
 					if syslogger:
