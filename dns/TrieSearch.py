@@ -251,7 +251,6 @@ def main(gte,lte,timestamp,time_zone):
 				source = doc.pop('source')
 				doc['domain'] = domain_es
 				doc['@timestamp'] = timestamp
-				doc['level'] = "info"
 				doc['type'] = "mal_dns"
 				doc['desc_type'] = "[mal_dns] Request of Malicious Domain Name Detection"
 				doc['desc_subtype'] = "[{0}] Intelligence comes from:{1}".format(doc['subtype'],source)
@@ -265,8 +264,9 @@ def main(gte,lte,timestamp,time_zone):
 				sip_answer_dict = get_sip_answer_dict(search_result)
 				
 				for sip in sip_answer_dict:
-					answer_list = sip_answer_dict[sip]
 
+					answer_list = sip_answer_dict[sip]
+					doc['level'] = "info"
 					doc['sip'] = sip
 					doc['answer'] = answer_list
 			
