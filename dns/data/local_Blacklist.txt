@@ -28,3 +28,5 @@ fq520000.com https://www.freebuf.com/articles/paper/187556.html c&c
 fq520000.org https://www.freebuf.com/articles/paper/187556.html c&c
 fget-career.com local c&c
 xmrxmr.tk local mining
+pm2bitcoin.com https://www.menlosecurity.com/blog/a-jar-full-of-problems-for-financial-services-companies c&c
+fud.fudcrypt.com https://www.menlosecurity.com/blog/a-jar-full-of-problems-for-financial-services-companies c&c
