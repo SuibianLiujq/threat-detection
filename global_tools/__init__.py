@@ -100,6 +100,7 @@ def read_intel():
 			fline = fp.readline()
 			b = fline.replace("\n", "")
 			try:
+				b=b.strip()
 				c = json.loads(b[0:-1], encoding="utf-8")
 				#print type(c)
 				all_lis.append(c)
