@@ -5,22 +5,18 @@ from store_json import store_json
 import sys
 import os
 sys.path.append('../')
-from conf import set_data_path
+from conf import set_data_path, get_intel_source
 
 
 def localblacklist():
-	data_path = set_data_path()
-	blacklist_dir = os.path.join(data_path,'local_Blacklist.txt')
-	with open(blacklist_dir,'r') as f:
-		text = f.read()
-	text = text.split('\n')[6:-1]
+	intelSourceList = get_intel_source()
 	ret_dict = {}
-	for row in text:
-		row = row.split(' ')
-		ret_dict[row[0]] = {
-			'source' : row[1],
-			'subtype' : row[2]
-		}
+	for item in intelSourceList:
+		for domain in item["host"]:
+			ret_dict[domain] = {
+				'source'  : item["source"],
+				'subtype' : item["type"]
+			}
 	return ret_dict
 
 def main():
