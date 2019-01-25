@@ -1,7 +1,10 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
 import logging,logging.handlers
 from cloghandler import ConcurrentRotatingFileHandler
-import re,platform,os,json,datetime
+import re,platform,os,json,datetime,time
 
+# split file and path
 __conf_dir = os.path.join(os.path.split(__file__)[0],"../cfg/conf_global.json")
 with open(__conf_dir,'r') as f:
 	__conf = json.loads(f.read())
@@ -78,4 +81,29 @@ def get_time_config():
 		"interval": datetime.timedelta(minutes = time_config["interval"]),
 		"offset": datetime.timedelta(seconds = time_config["offset"])
 	}
-	
+
+# get local intel_source file path
+def get_intel_path():
+	# ./security/ccbots/intel_source/source.rule
+	fpath = os.path.join(os.path.split(__file__)[0], "../../intel_source/source.rule")
+	return fpath
+
+# read intel_source file
+def read_intel():
+	fpath=get_intel_path()
+	# get modified time
+	# mt = time.ctime(os.stat(fpath).st_mtime)
+	all_lis = []
+	with open(fpath, "r") as fp:
+		times = 0
+		while 1:
+			fline = fp.readline()
+			b = fline.replace("\n", "")
+			try:
+				c = json.loads(b[0:-1], encoding="utf-8")
+				#print type(c)
+				all_lis.append(c)
+			except Exception, e:
+				if (b == ''):
+					break
+	return all_lis
