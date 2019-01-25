@@ -4,7 +4,7 @@
 from store_json import store_json
 import sys
 import os
-sys.path.append('../')
+sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
 from conf import set_data_path, get_intel_source
 
 
