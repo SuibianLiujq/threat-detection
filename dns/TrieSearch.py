@@ -269,33 +269,38 @@ def main(gte,lte,timestamp,time_zone):
 					answer_list = sip_answer_dict[sip]
 					doc['level'] = "info"
 					doc['sip'] = sip
-					doc['answer'] = answer_list
 			
 					dip_list = []
 					for answer in answer_list:
+						doc['answer'] = answer
+
 						if ipv4_pattern.findall(answer):
 							dip_list.append(answer)
-					if dip_list:
-						doc['dip'] = dip_list
-					else:
+							doc['dip'] = answer
+						else:
+							doc.pop( "dip", "")
+
+						es.es_index(doc)
+						if syslogger:
+							syslogger.info(doc)
+
 						doc.pop( "dip", "")
+						doc.pop( "answer", "")
 
-					es.es_index(doc)
-					if syslogger:
-						syslogger.info(doc)
-#					print doc
-
-					doc.pop( "answer", "")
 					for dip in dip_list:
 						sip_list = es.second_check(gte=gte,lte=lte,time_zone=time_zone,dip=dip)
 #						print sip_list
-						if sip_list:
+						for sip in sip_list:
 							doc['dip'] = dip
-							doc["sip"] = sip_list
+							doc["sip"] = sip
 							doc["level"] = "warn"
 							es.es_index(doc)
 							if syslogger:
 								syslogger.info(doc)
+
+							doc.pop( "dip", "")
+							doc.pop( "sip", "")
+							doc.pop( "level", "")
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
