@@ -298,7 +298,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc=alerts[tmp]
                 doc['level']="warn"
                 doc['sip']=tsip
-                doc['dept_sip']=get_sip_dpInfo(tsip,dept_info)
+                doc['sip_dept']=get_sip_dpInfo(tsip,dept_info)
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
     #mylog.info('second check insert finished.')
