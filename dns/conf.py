@@ -14,7 +14,7 @@ with open(__conf_dir,'r') as f:
 
 # Set store path .
 def set_data_path():
-	return os.path.join(os.path.abspath(__file__),"data")
+	return os.path.join(os.path.dirname(os.path.abspath(__file__)),"data")
 # print set_data_path()
 
 #############################################################################################################################        
