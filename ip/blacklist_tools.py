@@ -182,30 +182,81 @@ def load_whitelist(whitepath):
         mylog.warn('[mal_ip] NO whitelist path!')
     return datadic
 
+# 利用intel_source/source.rule更新local_bl，即更新替换
+# def update_bl():
+#     intldata=read_intel()
+#     lcl_bl={}
+#     for itm in intldata:
+#         #itm is dict
+#         if(len(itm['ip'])):
+#             ips=itm['ip']
+#             # 若无值，则default 处理
+#             if(not len(itm["type"])):
+#                 itm["type"]="suspect"
+#             if (not len(itm["source"])):
+#                 itm["source"] = "local_intelligence"
+#             for i in ips:
+#                 lcl_bl[i] = {
+#                     'subtype': itm['type'],
+#                     'desc_subtype': '{0} ip; source:{1}'.format(itm['type'], itm['source']),
+#                     'level': 'info',
+#                     'mapping_ip': i,
+#                 }
+#     return lcl_bl
 
-def load_blacklist(blackpath):
-    mylog = set_logger()
-    datadic = {}
-    if (os.path.exists(blackpath)):
-        # return  dataset,and type is dict
-        try:
-            with open(blackpath, 'r') as bf:
-                alllines = bf.read().split('\n')
-                del alllines[0]  # alllines[0] :ip,subtype,source
-                for line in alllines:
-                    if (line):
-                        linelis = line.split(',')
-                        datadic[linelis[0]] = {
-                            'subtype': linelis[1],
-                            'desc_subtype': '{} ip;source:{}'.format(linelis[1], linelis[2]),
-                            'level': 'info',
-                            'mapping_ip': linelis[0],
-                        }
-        except Exception, e:
-            mylog.error('[mal_ip] Load local blacklist:{}'.format(e))
-    else:
-        mylog.warn('[mal_ip] NO blacklist path!')
-    return datadic
+# 加载本地黑名单步骤
+'''
+step1: local_bl与intel_source下source.rule比较修改时间；
+    若两者更新时间相差1小时以上，则更新local_bl
+    若没有，则直接使用local_bl
+step2：更新local_bl的过程：
+    读source.rule，提取ip,构造json结构；
+    将json结构存入local_bl
+'''
+# def load_blacklist(blackpath):
+#     mylog = set_logger()
+#     # intel path
+#     intlp=get_intel_path()
+#     datadic = {}
+#     if (os.path.exists(blackpath) and os.path.exists(intlp)):
+#         # return  dataset,and type is dict
+#         # compare time
+#         if (cmp_file_mtime(blackpath, intlp)):
+#             # intlp time> blackpath time ,update local bl
+#             datadic=update_bl()
+#             # 覆盖原local_bl文件
+#             time.sleep(1)
+#             try:
+#                 with open(blackpath,'w') as fp:
+#                     json.dump(datadic,fp)
+#             except Exception,e:
+#                 mylog.error('[mal_ip] save local blacklist error :{}'.format(e))
+#         else:# 不更新，直接用local_bl
+#             try:
+#                 with open(blackpath,'r') as fp:
+#                     datadic=json.load(fp,encoding='utf-8')
+#             except Exception,e:
+#                 mylog.error('[mal_ip] Load local blacklist error :{}'.format(e))
+#     elif(os.path.exists(blackpath)):
+#         # no intel_source/source.rule, use the local_bl
+#         try:
+#             with open(blackpath, 'r') as fp:
+#                 datadic = json.load(fp, encoding='utf-8')
+#         except Exception, e:
+#             mylog.error('[mal_ip] Load local blacklist error :{}'.format(e))
+#     elif(os.path.exists(intlp)):
+#         # no local_bl, update
+#         datadic = update_bl()
+#         # 覆盖原local_bl文件
+#         time.sleep(1)
+#         try:
+#             with open(blackpath, 'w') as fp:
+#                 json.dump(datadic, fp)
+#         except Exception, e:
+#             mylog.error('[mal_ip] save local blacklist error :{}'.format(e))
+#     else:
+#         mylog.warn('[mal_ip] all blacklists are not existed !')
+#     return datadic
 
 
 # ============ global module   ============================

@@ -9,6 +9,8 @@ import time
 import datetime
 import blacklist_tools,parser_config
 from global_tools import set_logger
+from global_tools import get_sip_dpInfo
+from global_tools import get_local_ipsegment
 
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
@@ -282,12 +284,13 @@ class ESclient(object):
 '''
 searchAndInsert:1)modified the record (level:warning,add sip)
                 2)insert to es
-alerts: the alerts infomation
+alerts: the alerts information
 ipdict: dip after second check,and it's reference sip
 '''
 def searchAndInsert(alerts,ipdict,es,mylog):
     alert_dip=alerts.keys()
     warning_dip=ipdict.keys()
+    dept_info=get_local_ipsegment()
     #mylog.info('start second check insert.')
     for tmp in warning_dip:
         if(tmp in alert_dip):# make sure that dip in alerts
@@ -295,6 +298,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc=alerts[tmp]
                 doc['level']="warn"
                 doc['sip']=tsip
+                doc['dept_sip']=get_sip_dpInfo(tsip,dept_info)
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
     #mylog.info('second check insert finished.')

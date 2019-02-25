@@ -3,6 +3,7 @@
 import logging,logging.handlers
 from cloghandler import ConcurrentRotatingFileHandler
 import re,platform,os,json,datetime,time
+from IPy import IP
 
 # split file and path
 __conf_dir = os.path.join(os.path.split(__file__)[0],"../cfg/conf_global.json")
@@ -89,22 +90,53 @@ def get_intel_path():
 	return fpath
 
 # read intel_source file
-def read_intel():
-	fpath=get_intel_path()
-	# get modified time
-	# mt = time.ctime(os.stat(fpath).st_mtime)
-	all_lis = []
-	with open(fpath, "r") as fp:
-		times = 0
-		while 1:
-			fline = fp.readline()
-			b = fline.replace("\n", "")
-			try:
-				b=b.strip()
-				c = json.loads(b[0:-1], encoding="utf-8")
-				#print type(c)
-				all_lis.append(c)
-			except Exception, e:
-				if (b == ''):
-					break
-	return all_lis
+# def read_intel():
+# 	fpath=get_intel_path()
+# 	# get modified time
+# 	# mt = time.ctime(os.stat(fpath).st_mtime)
+# 	all_lis = []
+# 	with open(fpath, "r") as fp:
+# 		times = 0
+# 		while 1:
+# 			fline = fp.readline()
+# 			b = fline.replace("\n", "")
+# 			try:
+# 				b=b.strip()
+# 				c = json.loads(b[0:-1], encoding="utf-8")
+# 				#print type(c)
+# 				all_lis.append(c)
+# 			except Exception, e:
+# 				if (b == ''):
+# 					break
+# 	return all_lis
+
+
+# 比较两个文件的更新时间,(remote-local)大于deltaT（单位秒，默认值1）则返回True;
+# localfile：本地文件路径； remotefile：远程文件路径; deltaT: 时间差;
+def cmp_file_mtime(localfile,remotefile,deltaT=1):
+	lmt=time.mktime(time.gmtime(os.stat(localfile).st_mtime))
+	rmt=time.mktime(time.gmtime(os.stat(remotefile).st_mtime))
+	if(lmt>rmt):# local>remote
+		return False
+	elif(int(rmt-lmt)>deltaT):# remote-local>deltaT
+		return True
+	else:
+		return False
+
+
+# get local ip segment info
+def get_local_ipsegment():
+	# get subnet method
+    # source_store_path_key = cp.options("ip_second_check")
+    # value=cp.get(sectionName,keyword)
+    # ipSecondCheckC2 = cp.getint('ip_second_check', source_store_path_key[0])
+	local_ipseg = __conf["local_ip_segment"]
+	return local_ipseg
+
+
+# 查 sip 部门信息
+def get_sip_dpInfo(sip,iplist):
+	for keys,vals in iplist:
+		if(sip in IP(keys)):
+			return vals
+	return "unknown"

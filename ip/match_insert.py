@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch
 import datetime,sys
 from blacklist_tools import load_dict,load_whitelist
 import blacklist_tools,parser_config
-import os
+import os,time,json
 import check_XForce as xf
 from global_tools import set_logger
 
@@ -170,11 +170,20 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
     for i in range(len(data)):
         try:
             doc = {}
-            doc['level'] = msg[data[i]]['level']
+            if(msg[data[i]].has_key('level')):
+                doc['level'] = msg[data[i]]['level']
+            else:
+                doc['level'] = 'info'
             doc['type'] = 'mal_ip'
             doc['desc_type'] = '[mal_ip] Request of suspect IP detection.'
-            doc['desc_subtype'] = msg[data[i]]['desc_subtype']
-            doc['subtype'] = msg[data[i]]['subtype']
+            if(msg[data[i]].has_key('desc_subtype')):
+                doc['desc_subtype'] = msg[data[i]]['desc_subtype']
+            else:
+                doc['desc_subtype'] = 'alerts from local blacklist'
+            if(msg[data[i]].has_key('type')):
+                doc['subtype'] = msg[data[i]]['type']
+            else:
+                doc['subtype'] = 'suspect'
             doc['match_type'] = "full_match"
             doc[aggs_name] = data[i]
             doc['@timestamp'] = timestamp
@@ -207,11 +216,20 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
         except Exception, e:
             #mylog.error("[mal_ip] Match insert error:{0}".format(e))
             doc = {}
-            doc['level'] = msg[data[i]]['level']
+            if (msg[data[i]].has_key('level')):
+                doc['level'] = msg[data[i]]['level']
+            else:
+                doc['level'] = 'info'
             doc['type'] = 'mal_ip'
             doc['desc_type'] = '[mal_ip] Request of suspect IP detection.'
-            doc['desc_subtype'] = msg[data[i]]['desc_subtype']
-            doc['subtype'] = msg[data[i]]['subtype']
+            if (msg[data[i]].has_key('desc_subtype')):
+                doc['desc_subtype'] = msg[data[i]]['desc_subtype']
+            else:
+                doc['desc_subtype'] = 'alerts from local blacklist'
+            if (msg[data[i]].has_key('type')):
+                doc['subtype'] = msg[data[i]]['type']
+            else:
+                doc['subtype'] = 'suspect'
             doc['match_type'] = "full_match"
             doc[aggs_name] = data[i]
             doc['@timestamp'] = timestamp
@@ -402,18 +420,18 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
         except Exception, e:
             mylog.error('[mal_ip] Check blacklist error:{}'.format(e))
     else:
-        mylog.warning('[mal_ip] Check blacklist warn: no files!')
+        mylog.warning('[mal_ip] Check blapwcklist warn: no files!')
     #blacklist match，本地黑名单检查
     blflg,blackpath=parser_config.get_self_filelist('blacklist')
     if(blflg==1):
-        if(os.path.exists(blackpath)):
+        if(os.path.exists(blackpath)):# 黑名单目录是否存在
             filelist = get_all_file(blackpath)
             # 黑名单处理与普通文件不一样。
             # check each file
             for fname in filelist:
                 fpath = blackpath + fname
                 # mylog.info(' -*-*-*-*- local file:{} -*-*-*-*-'.format(fname))
-                dataset = blacklist_tools.load_blacklist(fpath)
+                dataset = blacklist_tools.load_dict(fpath)
                 if (dataset):
                     try:
                         fullmatch, segmentmatch, subnetlpm, subnetfull = treatip(dataset, ip_es_list)
@@ -423,6 +441,7 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
                             allThreatIP=dict(allThreatIP,**tmpIP)
                     except Exception,e:
                         mylog.error('[mal_ip] Check local blacklist error:{}'.format(e))
+            time.sleep(1)
         else:
             mylog.warn('[mal_ip] Local blacklist warn: no self_blacklist_path')
     return allThreatIP
