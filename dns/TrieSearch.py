@@ -269,7 +269,6 @@ def main(gte,lte,timestamp,time_zone):
 					answer_list = sip_answer_dict[sip]
 					doc['level'] = "info"
 					doc['sip'] = sip
-					doc['sip_dept'] = get_dept_info(sip)
 			
 					dip_list = []
 					for answer in answer_list:
