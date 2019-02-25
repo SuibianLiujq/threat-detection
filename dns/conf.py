@@ -61,7 +61,9 @@ def get_others_config():
 # print get_others_config()
 
 #############################################################################################################################
-
+def get_dept_info(sip):
+	localIPSegment = get_local_ipsegment()
+	return get_sip_dpInfo(sip,localIPSegment)
 
 
 

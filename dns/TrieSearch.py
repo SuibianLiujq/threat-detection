@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 import json,re
 import datetime,sys,os
 from blacklist_tools import load_dict,create_Trie
-from conf import set_data_path,ES_config,log,syslogger,ES_client,get_others_config
+from conf import set_data_path,ES_config,log,syslogger,ES_client,get_others_config,get_dept_info
 import Second_Check
 
 data_path = set_data_path()
@@ -269,6 +269,7 @@ def main(gte,lte,timestamp,time_zone):
 					answer_list = sip_answer_dict[sip]
 					doc['level'] = "info"
 					doc['sip'] = sip
+					doc['sip_dept'] = get_dept_info(sip)
 			
 					dip_list = []
 					for answer in answer_list:
@@ -293,6 +294,7 @@ def main(gte,lte,timestamp,time_zone):
 						for sip in sip_list:
 							doc['dip'] = dip
 							doc["sip"] = sip
+							doc['sip_dept'] = get_dept_info(sip)
 							doc["level"] = "warn"
 							es.es_index(doc)
 							if syslogger:
@@ -301,6 +303,7 @@ def main(gte,lte,timestamp,time_zone):
 							doc.pop( "dip", "")
 							doc.pop( "sip", "")
 							doc.pop( "level", "")
+							doc.pop( "sip_dept", "")
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
