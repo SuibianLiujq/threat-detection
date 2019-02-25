@@ -14,7 +14,7 @@ with open(__conf_dir,'r') as f:
 
 # Set store path .
 def set_data_path():
-	return os.path.abspath(os.path.join(os.path.split(__file__)[0],"data/"))
+	return os.path.join(os.path.abspath(__file__),"data")
 # print set_data_path()
 
 #############################################################################################################################        
@@ -62,7 +62,6 @@ def get_others_config():
 
 #############################################################################################################################
 
-def get_intel_source():
-	return read_intel()
+
 
 

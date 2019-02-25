@@ -4,20 +4,18 @@
 from store_json import store_json
 import sys
 import os
-sys.path.append(os.path.join(os.path.split(__file__)[0],"../"))
-from conf import set_data_path, get_intel_source
+import json
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from conf import set_data_path
 
 
 def localblacklist():
-	intelSourceList = get_intel_source()
-	ret_dict = {}
-	for item in intelSourceList:
-		for domain in item["host"]:
-			ret_dict[domain] = {
-				'source'  : item["source"],
-				'subtype' : item["type"]
-			}
-	return ret_dict
+	dataPath = sys.path.join(set_data_path(), "local_bl_dns.json")
+	with open(dataPath, 'r') as f:
+		data = json.loads(f)
+	for _, v in data:
+		data["subtype"] = data.pop("type", "")
+	return data
 
 def main():
 	ret_dict = localblacklist()
