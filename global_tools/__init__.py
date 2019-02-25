@@ -136,7 +136,7 @@ def get_local_ipsegment():
 
 # 查 sip 部门信息
 def get_sip_dpInfo(sip,iplist):
-	for keys,vals in iplist:
+	for keys,vals in iplist.items():
 		if(sip in IP(keys)):
 			return vals
 	return "unknown"
