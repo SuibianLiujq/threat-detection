@@ -58,7 +58,7 @@ def run():
             gte = (startTime-delta-offset).strftime('%Y-%m-%d %H:%M:%S')
             lte = (startTime-offset).strftime('%Y-%m-%d %H:%M:%S')
 
-            if time.daylight == 0:
+            if time.localtime(time.time())[8] == 0:
                 time_zone = "%+03d:%02d" % (-(time.timezone/3600),time.timezone%3600/3600.0*60)
             else:
                 time_zone = "%+03d:%02d" % (-(time.altzone/3600),time.altzone%3600/3600.0*60)
