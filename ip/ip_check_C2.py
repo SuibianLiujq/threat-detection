@@ -10,7 +10,7 @@ import datetime
 import blacklist_tools,parser_config
 from global_tools import set_logger
 from global_tools import get_sip_dpInfo
-from global_tools import get_local_ipsegment
+from global_tools import get_local_ipsegment,ipipCheckGeo
 
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
@@ -294,11 +294,17 @@ def searchAndInsert(alerts,ipdict,es,mylog):
     #mylog.info('start second check insert.')
     for tmp in warning_dip:
         if(tmp in alert_dip):# make sure that dip in alerts
+            dd = ipipCheckGeo(tmp.encode("utf-8"))
+            dip_cnty = dd[tmp][0]
+            dip_provs = dd[tmp][1]
             for tsip in ipdict[tmp]:# insert sip/dip to es
                 doc=alerts[tmp]
                 doc['level']="warn"
                 doc['sip']=tsip
                 doc['sip_dept']=get_sip_dpInfo(tsip,dept_info)
+                # es接受unicode编码格式
+                doc['dip_country']=dip_cnty.decode("utf-8")
+                doc['dip_prov']=dip_provs.decode("utf-8")
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
     #mylog.info('second check insert finished.')

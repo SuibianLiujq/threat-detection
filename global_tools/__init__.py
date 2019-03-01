@@ -4,6 +4,7 @@ import logging,logging.handlers
 from cloghandler import ConcurrentRotatingFileHandler
 import re,platform,os,json,datetime,time
 from IPy import IP
+import ipdb
 
 # split file and path
 __conf_dir = os.path.join(os.path.split(__file__)[0],"../cfg/conf_global.json")
@@ -126,10 +127,6 @@ def cmp_file_mtime(localfile,remotefile,deltaT=1):
 
 # get local ip segment info
 def get_local_ipsegment():
-	# get subnet method
-    # source_store_path_key = cp.options("ip_second_check")
-    # value=cp.get(sectionName,keyword)
-    # ipSecondCheckC2 = cp.getint('ip_second_check', source_store_path_key[0])
 	local_ipseg = __conf["local_ip_segment"]
 	return local_ipseg
 
@@ -140,3 +137,42 @@ def get_sip_dpInfo(sip,iplist):
 		if(sip in IP(keys)):
 			return vals
 	return "unknown"
+
+
+# get ipip dataset path
+def get_ipipGeo_path():
+	fpath= __conf["ipipGeo"]
+	return fpath
+
+# 利用IP IP库查询地理位置,接受参数 为单个ip 或 ip list
+# 注意编码格式： 输入是str或str list,而得到的结果是unicode编码。
+# 输出时已经编码为utf-8
+def ipipCheckGeo(ips):
+	mylog=set_logger()
+	iplis = []
+	if(type(ips)==str):
+		iplis.append(ips)
+	elif(type(ips)==list):
+		iplis=ips
+	else:
+		mylog.error("[global function] Input type Error in ipipCheckGeo().")
+		return 0
+	fpath=get_ipipGeo_path()
+	realpath = os.path.split(__file__)[0] + os.path.sep +".."+os.path.sep+ fpath
+	#print realpath
+	dbs = ipdb.City(realpath)
+	redic={}
+	for ip in iplis:
+		try:
+			# encode
+			tmp=dbs.find(ip.decode(), "CN")
+			newtmp=[]
+			for ii in tmp:
+				newtmp.append(ii.encode("utf-8"))
+			redic[ip]=newtmp
+		except Exception,e:
+			mylog.error("[global function] Check IP by ipdb errors:{0}".format(e))
+	return redic
+
+
+

@@ -25,6 +25,7 @@
 		"interval":5,
 		"offset":0
 	},
+	"ipipGeo":"global_data/ipipfree.ipdb",
   	"local_ip_segment":{
 		"172.23.1.0/24": "GRG-Wifi",
 		"172.18.0.0/24": "广电计量",
