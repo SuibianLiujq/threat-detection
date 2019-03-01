@@ -65,5 +65,6 @@ def get_dept_info(sip):
 	localIPSegment = get_local_ipsegment()
 	return get_sip_dpInfo(sip,localIPSegment)
 
-
-
+def get_ipip_geo(dip):
+	ipipGeo = ipipCheckGeo(dip.encode("utf-8"))
+	return ipipGeo[dip]

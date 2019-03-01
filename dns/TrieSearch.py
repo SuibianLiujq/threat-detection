@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 import json,re
 import datetime,sys,os
 from blacklist_tools import load_dict,create_Trie
-from conf import set_data_path,ES_config,log,syslogger,ES_client,get_others_config,get_dept_info
+from conf import set_data_path,ES_config,log,syslogger,ES_client,get_others_config,get_dept_info,get_ipip_geo
 import Second_Check
 
 data_path = set_data_path()
@@ -294,6 +294,9 @@ def main(gte,lte,timestamp,time_zone):
 							doc['dip'] = dip
 							doc["sip"] = sip
 							doc['sip_dept'] = get_dept_info(sip)
+							dipGeo = get_ipip_geo(dip)
+							doc['dip_country'] = dipGeo[0].decode('utf-8')
+							doc['dip_prov'] = dipGeo[1].decode('utf-8')
 							doc["level"] = "warn"
 							es.es_index(doc)
 							if syslogger:
@@ -303,6 +306,8 @@ def main(gte,lte,timestamp,time_zone):
 							doc.pop( "sip", "")
 							doc.pop( "level", "")
 							doc.pop( "sip_dept", "")
+							doc.pop( "dip_country", "")
+							doc.pop( "dip_prov", "")
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
