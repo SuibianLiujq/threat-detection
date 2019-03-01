@@ -295,8 +295,8 @@ def main(gte,lte,timestamp,time_zone):
 							doc["sip"] = sip
 							doc['sip_dept'] = get_dept_info(sip)
 							dipGeo = get_ipip_geo(dip)
-							doc['dip_country'] = dipGeo[0].decode('utf-8')
-							doc['dip_prov'] = dipGeo[1].decode('utf-8')
+							doc['dip_country'] = dipGeo[0]
+							doc['dip_prov'] = dipGeo[1]
 							doc["level"] = "warn"
 							es.es_index(doc)
 							if syslogger:
