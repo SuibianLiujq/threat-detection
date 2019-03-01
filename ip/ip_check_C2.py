@@ -303,8 +303,8 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc['sip']=tsip
                 doc['sip_dept']=get_sip_dpInfo(tsip,dept_info)
                 # es接受unicode编码格式
-                doc['dip_country']=dip_cnty.decode("utf-8")
-                doc['dip_prov']=dip_provs.decode("utf-8")
+                doc['dip_country']=dip_cnty
+                doc['dip_prov']=dip_provs
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
     #mylog.info('second check insert finished.')

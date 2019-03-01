@@ -146,7 +146,6 @@ def get_ipipGeo_path():
 
 # 利用IP IP库查询地理位置,接受参数 为单个ip 或 ip list
 # 注意编码格式： 输入是str或str list,而得到的结果是unicode编码。
-# 输出时已经编码为utf-8
 def ipipCheckGeo(ips):
 	mylog=set_logger()
 	iplis = []
@@ -166,10 +165,10 @@ def ipipCheckGeo(ips):
 		try:
 			# encode
 			tmp=dbs.find(ip.decode(), "CN")
-			newtmp=[]
-			for ii in tmp:
-				newtmp.append(ii.encode("utf-8"))
-			redic[ip]=newtmp
+			# newtmp=[]
+			# for ii in tmp:
+			# 	newtmp.append(ii.encode("utf-8"))
+			redic[ip]=tmp
 		except Exception,e:
 			mylog.error("[global function] Check IP by ipdb errors:{0}".format(e))
 	return redic
