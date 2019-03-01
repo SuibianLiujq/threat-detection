@@ -149,9 +149,12 @@ def get_ipipGeo_path():
 def ipipCheckGeo(ips):
 	mylog=set_logger()
 	iplis = []
-	if(type(ips)==str):
+	# ipip查询仅接受unicode编码
+	if(type(ips) is unicode):
 		iplis.append(ips)
-	elif(type(ips)==list):
+	elif(type(ips) is str):
+		iplis.append(ips)
+	elif(type(ips) is list):
 		iplis=ips
 	else:
 		mylog.error("[global function] Input type Error in ipipCheckGeo().")
@@ -162,9 +165,13 @@ def ipipCheckGeo(ips):
 	dbs = ipdb.City(realpath)
 	redic={}
 	for ip in iplis:
+		if(type(ip) is not unicode):
+			ip2=ip.decode()
+		else:
+			ip2=ip
 		try:
-			# encode
-			tmp=dbs.find(ip.decode(), "CN")
+			# encode，ipip查询仅接受unicode编码
+			tmp=dbs.find(ip2, "CN")
 			# newtmp=[]
 			# for ii in tmp:
 			# 	newtmp.append(ii.encode("utf-8"))

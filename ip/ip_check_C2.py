@@ -294,7 +294,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
     #mylog.info('start second check insert.')
     for tmp in warning_dip:
         if(tmp in alert_dip):# make sure that dip in alerts
-            dd = ipipCheckGeo(tmp.encode("utf-8"))
+            dd = ipipCheckGeo(tmp)
             dip_cnty = dd[tmp][0]
             dip_provs = dd[tmp][1]
             for tsip in ipdict[tmp]:# insert sip/dip to es
