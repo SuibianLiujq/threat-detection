@@ -293,10 +293,10 @@ def main(gte,lte,timestamp,time_zone):
 						for sip in sip_list:
 							doc['dip'] = dip
 							doc["sip"] = sip
-							doc['sip_dept'] = get_dept_info(sip)
+							doc['src_dept'] = get_dept_info(sip)
 							dipGeo = get_ipip_geo(dip)
-							doc['dip_country'] = dipGeo[0]
-							doc['dip_prov'] = dipGeo[1]
+							doc['dst_country'] = dipGeo[0]
+							doc['dst_province'] = dipGeo[1]
 							doc["level"] = "warn"
 							es.es_index(doc)
 							if syslogger:
@@ -305,9 +305,9 @@ def main(gte,lte,timestamp,time_zone):
 							doc.pop( "dip", "")
 							doc.pop( "sip", "")
 							doc.pop( "level", "")
-							doc.pop( "sip_dept", "")
-							doc.pop( "dip_country", "")
-							doc.pop( "dip_prov", "")
+							doc.pop( "src_dept", "")
+							doc.pop( "dst_country", "")
+							doc.pop( "dst_province", "")
 		except Exception as e:
 			log.error("Insert the alert of threat DNS to ES failed.\n{0}".format(e))
 			raise e
