@@ -301,10 +301,11 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc=alerts[tmp]
                 doc['level']="warn"
                 doc['sip']=tsip
-                doc['sip_dept']=get_sip_dpInfo(tsip,dept_info)
+                doc['src_dept']=get_sip_dpInfo(tsip,dept_info)
                 # es接受unicode编码格式
-                doc['dip_country']=dip_cnty
-                doc['dip_prov']=dip_provs
+                doc['dst_country']=dip_cnty
+                doc['dst_province']=dip_provs
+                # doc['dst_city']
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
     #mylog.info('second check insert finished.')
