@@ -12,7 +12,7 @@ import parser_config
 import update_blacklist
 import blacklist_tools
 import ip_check_C2
-from global_tools import set_logger
+from global_tools import set_logger,isOffline
 
 second = datetime.timedelta(seconds=1)
 day = datetime.timedelta(days=1)
@@ -58,7 +58,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
     tday=datetime.datetime.now().date()
     # runtime=0 # elapsed time of whole process,included check and merge
     mylog=set_logger()
-    updateFlg=parser_config.update_flg() #
+    offlineFlg=isOffline() #
     while True:
         if(tday!=datetime.datetime.now().date()):
             flgnum=0 # reset flgnum per day
@@ -72,7 +72,7 @@ def new_run(entertime,delta,serverNum,dport,offset,querys,indx='tcp-*',aggs_name
         try:
             # st=time.clock()
             #update source dataset
-            if(updateFlg==1):
+            if(offlineFlg is False):
                 if(datetime.datetime.now()>=updatetime):
                     update_blacklist.main(tday,flgnum)
                     updatetime=updatetime+delta

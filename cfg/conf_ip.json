@@ -16,7 +16,6 @@
   },
   "switch":{
     "ip_check_C2":1,
-    "update_flg":1,
     "lpm_method":1,
     "full_method":1,
     "warnList":4
