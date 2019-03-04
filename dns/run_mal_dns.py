@@ -49,7 +49,7 @@ def run():
         blacklist_Trie_dir = os.path.join(data_path,'trie'+'-'+storeDate+".json")
         # print blacklist_Trie_dir
 
-        if  (not others["offline"]) and not ((os.path.exists(blacklist_dir) and os.path.exists(blacklist_Trie_dir))):
+        if  (not is_offline()) and not ((os.path.exists(blacklist_dir) and os.path.exists(blacklist_Trie_dir))):
             store_run(storeDate)
 
         try:
