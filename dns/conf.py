@@ -68,3 +68,10 @@ def get_dept_info(sip):
 def get_ipip_geo(dip):
 	ipipGeo = ipipCheckGeo(dip.encode("utf-8"))
 	return ipipGeo[dip]
+
+def is_offline():
+	try:
+		return isOffline()
+	except Exception as e:
+		log.error(e)
+		raise e

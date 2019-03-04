@@ -13,7 +13,6 @@
 	},
 
 	"others": {
-		"offline": false,
 		"alert_level": "warn"
 	}
 }

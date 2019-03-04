@@ -2,7 +2,7 @@
 	"log": {
 		"level": "info"
 	},
-
+	"offline": false,
 	"es_server": {
 		"server": "localhost",
 		"port": 9200,

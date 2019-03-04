@@ -180,5 +180,11 @@ def ipipCheckGeo(ips):
 			mylog.error("[global function] Check IP by ipdb errors:{0}".format(e))
 	return redic
 
-
+def isOffline():
+	if __conf["offline"] == True:
+		return True
+	elif __conf["offline"] == False:
+		return False
+	else:
+		raise ValueError,"[global function] {0} not a bool".format(__conf["offline"])
 

@@ -3,7 +3,7 @@
 import os
 import time
 import datetime
-from conf import set_data_path,set_frequency,log,get_others_config
+from conf import set_data_path,set_frequency,log,get_others_config, is_offline
 import TrieSearch,merge_blacklist
 
 data_path = set_data_path()
@@ -31,7 +31,7 @@ def run():
     #beginTime = datetime.datetime.strptime(begin, '%Y-%m-%d %H:%M:%S')
     #print startTime
     log.info("[mal_dns] Running mal_dns detection.")
-    if others["offline"]:
+    if is_offline():
         log.info("[mal_dns] Enable offline , use default intelligence.")
     count = 0
     while True:
