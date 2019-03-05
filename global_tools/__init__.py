@@ -128,15 +128,15 @@ def cmp_file_mtime(localfile,remotefile,deltaT=1):
 # get local ip segment info
 def get_local_ipsegment():
 	local_ipseg = __conf["local_ip_segment"]
-	local_ipper = __conf["local_ip_person"]
-	return local_ipseg,local_ipper
+	return local_ipseg
 
 
 # 查 sip 部门信息
-def get_sip_dpInfo(sip,ipSeglist,ipPerlist):
-	for keys,vals in ipPerlist.items():
-		if(sip in IP(keys)):
-			return vals
+def get_sip_dpInfo(sip,ipSeglist):
+	# get Personal IPs
+	infos=ipSeglist.get(sip,None)
+	if(infos is not None):
+		return infos
 	for keys,vals in ipSeglist.items():
 		if(sip in IP(keys)):
 			return vals
