@@ -290,7 +290,7 @@ ipdict: dip after second check,and it's reference sip
 def searchAndInsert(alerts,ipdict,es,mylog):
     alert_dip=alerts.keys()
     warning_dip=ipdict.keys()
-    dept_info=get_local_ipsegment()
+    dept_info,person_info=get_local_ipsegment()
     #mylog.info('start second check insert.')
     for tmp in warning_dip:
         if(tmp in alert_dip):# make sure that dip in alerts
@@ -301,7 +301,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc=alerts[tmp]
                 doc['level']="warn"
                 doc['sip']=tsip
-                doc['src_dept']=get_sip_dpInfo(tsip,dept_info)
+                doc['src_dept']=get_sip_dpInfo(tsip,dept_info,person_info)
                 # es接受unicode编码格式
                 doc['dst_country']=dip_cnty
                 doc['dst_province']=dip_provs
