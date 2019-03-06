@@ -43,7 +43,7 @@ def checkES(startTime,indx,aggs_name,serverNum,dport,tday,offset,query_strs):
 
     except Exception, e:
         # print e
-        mylog.error(e)
+        mylog.error("[mal_ip] {0}".format(e))
         return {}
 
 # 程序入口
