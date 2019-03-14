@@ -396,6 +396,7 @@ def main(tday,index, gte, lte, aggs_name, timestamp,serverNum,dport,time_zone,qu
             dflg, defaultpath = parser_config.get_self_filelist('defaultlist')
             if(dflg==1):
                 filelist = get_all_file(defaultpath)
+                path=defaultpath
             else:
                 filelist=[]
             break
