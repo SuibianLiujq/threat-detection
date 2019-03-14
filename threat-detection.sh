@@ -39,7 +39,7 @@ function start_module() {
 	cmd="${PYTHON} ${run_dict[${1}]}"
 
 	printf "Start ${1} ...\r"
-	${cmd} 1>/dev/null 2>&1 &
+	${cmd} 2>&1>/dev/null &
 	sleep 1
 
 	pid=`get_pid ${1}`
