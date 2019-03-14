@@ -9,7 +9,7 @@ from blacklist_tools import load_dict,load_whitelist
 import blacklist_tools,parser_config
 import os,time,json
 import check_XForce as xf
-from global_tools import set_logger
+from global_tools import set_logger,ipipCheckGeo
 
 class ESclient(object):
 	def __init__(self,server='192.168.0.122',port='9222'):
@@ -236,6 +236,11 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
             doc['index'] = index
             es_insert.es_index(doc)
             tmpThreat[data[i]] = doc
+        # dip site
+        dd = ipipCheckGeo(doc[aggs_name])
+        doc['dst_country'] = dd[doc[aggs_name]][0]
+        doc['dst_province'] = dd[doc[aggs_name]][1]
+        doc['dst_city'] = dd[doc[aggs_name]][2]
             # print 'full_match_insert'
             #mylog.info('[mal_ip] Insert fullmatch by defaut')
     return tmpThreat
@@ -320,6 +325,12 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
             doc['@timestamp'] = timestamp
             doc['index'] = index
             tmpThreat[ip_es] = doc
+        # dip site
+        dd = ipipCheckGeo(doc[aggs_name])
+        doc['dst_country'] = dd[doc[aggs_name]][0]
+        doc['dst_province'] = dd[doc[aggs_name]][1]
+        doc['dst_city'] = dd[doc[aggs_name]][2]
+
             # print 'subnet_lpm_insert'
             #mylog.info('[mal_ip] Insert {0} by default'.format(match_types))
     return tmpThreat

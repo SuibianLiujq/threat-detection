@@ -297,6 +297,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
             dd = ipipCheckGeo(tmp)
             dip_cnty = dd[tmp][0]
             dip_provs = dd[tmp][1]
+            dip_citys = dd[tmp][2]
             for tsip in ipdict[tmp]:# insert sip/dip to es
                 doc=alerts[tmp]
                 doc['level']="warn"
@@ -305,6 +306,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 # es接受unicode编码格式
                 doc['dst_country']=dip_cnty
                 doc['dst_province']=dip_provs
+                doc['dst_city'] = dip_citys
                 # doc['dst_city']
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')
