@@ -127,14 +127,14 @@ def cmp_file_mtime(localfile,remotefile,deltaT=1):
 
 # get local ip segment info
 def get_local_ipsegment():
+	mylog = set_logger()
 	local_file = __conf["local_ip_dept"]
 	# read json file
 	try:
 		with open(local_file, 'r') as f:
 			local_ipseg = json.loads(f.read())
 	except Exception,e:
-		mylog=set_logger()
-		mylog.warn("[Load ip_dept] Error:{0}".format(e))
+		mylog.error("[Global_tools] Load ip_dept Error:{0}".format(e))
 		local_ipseg={}
 	return local_ipseg
 

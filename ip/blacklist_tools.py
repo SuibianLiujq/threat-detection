@@ -123,7 +123,7 @@ def load_dict(filedir):
         with open(filedir, 'r') as f:
             dict1 = json.loads(f.read())
     except IOError:
-        print 'load_dict Error'
+        print 'load_dict Error:{0}'.format(filedir)
     return dict1
 
 
