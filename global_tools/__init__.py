@@ -148,7 +148,7 @@ def get_sip_dpInfo(sip,ipSeglist):
 	for keys,vals in ipSeglist.items():
 		if(sip in IP(keys)):
 			return vals
-	return "unknown"
+	return ' '
 
 
 # get ipip dataset path

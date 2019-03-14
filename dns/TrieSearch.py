@@ -269,6 +269,7 @@ def main(gte,lte,timestamp,time_zone):
 					answer_list = sip_answer_dict[sip]
 					doc['level'] = "info"
 					doc['sip'] = sip
+					doc['src_dept'] = get_dept_info(sip)
 			
 					dip_list = []
 					for answer in answer_list:
@@ -277,8 +278,13 @@ def main(gte,lte,timestamp,time_zone):
 						if ipv4_pattern.findall(answer):
 							dip_list.append(answer)
 							doc['dip'] = answer
+							dipGeo = get_ipip_geo(dip)
+							doc['dst_country'] = dipGeo[0]
+							doc['dst_province'] = dipGeo[1]
 						else:
 							doc.pop( "dip", "")
+							doc.pop( "dst_country", "")
+							doc.pop( "dst_province", "")
 
 						es.es_index(doc)
 						if syslogger:
