@@ -278,7 +278,7 @@ def main(gte,lte,timestamp,time_zone):
 						if ipv4_pattern.findall(answer):
 							dip_list.append(answer)
 							doc['dip'] = answer
-							dipGeo = get_ipip_geo(dip)
+							dipGeo = get_ipip_geo(answer)
 							doc['dst_country'] = dipGeo[0]
 							doc['dst_province'] = dipGeo[1]
 						else:
