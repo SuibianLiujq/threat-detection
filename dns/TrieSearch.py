@@ -250,6 +250,7 @@ def main(gte,lte,timestamp,time_zone):
 				doc = dict(blacklist[domain])
 				source = doc.pop('source')
 				doc['domain'] = domain_es
+				doc['eventid'] = 102002
 				doc['@timestamp'] = timestamp
 				doc['level'] = "info"
 				doc['type'] = "mal_dns"
