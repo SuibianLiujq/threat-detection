@@ -168,6 +168,7 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
     new_fullmatch = get_xforce(data, 1)
     # new_fullmatch_list=new_fullmatch.keys()
     for i in range(len(data)):
+        tmpip=data[i]
         try:
             doc = {}
             if(msg[data[i]].has_key('level')):
@@ -185,7 +186,7 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
             else:
                 doc['subtype'] = 'suspect'
             doc['match_type'] = "full_match"
-            doc[aggs_name] = data[i]
+            doc[aggs_name] = tmpip
             doc['@timestamp'] = timestamp
             doc['index'] = index
             # mylog.info('msg start{0}'.format(new_fullmatch[fullmatch[i]]))
@@ -210,8 +211,6 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
                 doc['xforce_msg'] = msg_info[:-1]
             else:
                 doc['xforce_msg'] = msg_info
-            es_insert.es_index(doc)
-            tmpThreat[data[i]] = doc
             #mylog.info('insert fullmatch with xforce')
         except Exception, e:
             #mylog.error("[mal_ip] Match insert error:{0}".format(e))
@@ -231,16 +230,17 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
             else:
                 doc['subtype'] = 'suspect'
             doc['match_type'] = "full_match"
-            doc[aggs_name] = data[i]
+            doc[aggs_name] = tmpip
             doc['@timestamp'] = timestamp
             doc['index'] = index
-            es_insert.es_index(doc)
-            tmpThreat[data[i]] = doc
         # dip site
-        dd = ipipCheckGeo(doc[aggs_name])
-        doc['dst_country'] = dd[doc[aggs_name]][0]
-        doc['dst_province'] = dd[doc[aggs_name]][1]
-        doc['dst_city'] = dd[doc[aggs_name]][2]
+        dd = ipipCheckGeo(tmpip)
+        doc['dst_country'] = dd[tmpip][0]
+        doc['dst_province'] = dd[tmpip][1]
+        doc['dst_city'] = dd[tmpip][2]
+        # insert
+        es_insert.es_index(doc)
+        tmpThreat[tmpip] = doc
             # print 'full_match_insert'
             #mylog.info('[mal_ip] Insert fullmatch by defaut')
     return tmpThreat
@@ -254,13 +254,13 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
     new_subnetlpm = get_xforce(data, 0)
     # new_fullmatch_list=new_fullmatch.keys()
     for i in range(len(data)):
+        doc = {}
+        # segment insert,
+        # ip_es 原es IP
+        ip_es = data[i].keys()[0]  # get alert ip
+        # ip_es,对应的匹配的ip
+        ipseg = data[i][ip_es]  # alert match type
         try:
-            doc = {}
-            # segment insert,
-            # ip_es 原es IP
-            ip_es=data[i].keys()[0]# get alert ip
-            # ip_es,对应的匹配的ip
-            ipseg=data[i][ip_es]# alert match type
             # print ipseg
             if(match_types == "subnet_lpm_match"):
                 #lpm找不到对应ip,随机取一个当前黑名单的ip，获取对应属性字段
@@ -298,8 +298,6 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
                 doc['xforce_msg'] = msg_info[:-1]
             else:
                 doc['xforce_msg'] = msg_info
-            es_insert.es_index(doc)
-            tmpThreat[ip_es] = doc
             #mylog.info('insert {0} with xforce'.format(match_types))
         except Exception, e:
             #mylog.error("[mal_ip] Other match_type error:{0}".format(e))
@@ -324,13 +322,14 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
             doc[aggs_name] = ip_es
             doc['@timestamp'] = timestamp
             doc['index'] = index
-            tmpThreat[ip_es] = doc
         # dip site
-        dd = ipipCheckGeo(doc[aggs_name])
-        doc['dst_country'] = dd[doc[aggs_name]][0]
-        doc['dst_province'] = dd[doc[aggs_name]][1]
-        doc['dst_city'] = dd[doc[aggs_name]][2]
-
+        dd = ipipCheckGeo(ip_es)
+        doc['dst_country'] = dd[ip_es][0]
+        doc['dst_province'] = dd[ip_es][1]
+        doc['dst_city'] = dd[ip_es][2]
+        # insert
+        es_insert.es_index(doc)
+        tmpThreat[ip_es] = doc
             # print 'subnet_lpm_insert'
             #mylog.info('[mal_ip] Insert {0} by default'.format(match_types))
     return tmpThreat
