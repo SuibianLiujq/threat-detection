@@ -31,7 +31,7 @@ def bambenek_ip(mylog):
             if('/' in subtype):
                 subtype=subtype.replace('/','or')
             ip_dict[linelist[0]] = {
-                'subtype':subtype2,
+                'subtype':"c&c",
                 'desc_subtype':'{} ip;source:http://osint.bambenekconsulting.com/feeds/c2-ipmasterlist.txt'.format(subtype),
                 'level':'info',
                 'fp':'unknown',
