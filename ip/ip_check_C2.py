@@ -307,6 +307,7 @@ def searchAndInsert(alerts,ipdict,es,mylog):
                 doc['dst_country']=dip_cnty
                 doc['dst_province']=dip_provs
                 doc['dst_city'] = dip_citys
+                doc['eventid'] = 102001
                 # doc['dst_city']
                 es.es_index(doc)
                 #mylog.info('insert WARNING!!!')

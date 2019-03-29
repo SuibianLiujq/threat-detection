@@ -238,6 +238,7 @@ def full_match_type(es_insert,data,msg,index,timestamp,aggs_name):
         doc['dst_country'] = dd[tmpip][0]
         doc['dst_province'] = dd[tmpip][1]
         doc['dst_city'] = dd[tmpip][2]
+        doc['eventid'] = 102001
         # insert
         es_insert.es_index(doc)
         tmpThreat[tmpip] = doc
@@ -327,6 +328,7 @@ def other_match_type(es_insert,data,match_types,msg,index,timestamp,aggs_name):
         doc['dst_country'] = dd[ip_es][0]
         doc['dst_province'] = dd[ip_es][1]
         doc['dst_city'] = dd[ip_es][2]
+        doc['eventid'] = 102001
         # insert
         es_insert.es_index(doc)
         tmpThreat[ip_es] = doc
